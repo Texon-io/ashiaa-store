@@ -7,13 +7,17 @@ This repository contains the frontend of a bookstore selling **books, stationery
 
 ## Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Purpose](#purpose)
-3. [Design System](#design-system)
-4. [Usage Guidelines](#usage-guidelines)
-5. [Contributing](#contributing)
-6. [License](#license)
-7. [Contact](#contact)
+- [Texon Bookstore Frontend](#texon-bookstore-frontend)
+  - [Table of Contents](#table-of-contents)
+  - [Project Overview](#project-overview)
+  - [Purpose](#purpose)
+  - [Design System](#design-system)
+    - [Colors](#colors)
+    - [Fonts](#fonts)
+  - [Usage Guidelines](#usage-guidelines)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Contact](#contact)
 
 ---
 
@@ -41,6 +45,8 @@ It serves as a foundation for all future frontend projects at Texon, ensuring:
 ---
 
 ## Design System
+
+-> Atomic Design
 
 ### Colors
 

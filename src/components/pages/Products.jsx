@@ -1,7 +1,5 @@
 function Products() {
-    return (
-        <>products</>
-    )
+  return <>products</>;
 }
 
 export default Products;

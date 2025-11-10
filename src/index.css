@@ -18,3 +18,7 @@ body {
   font-family: var(--font-tajawal);
     direction: rtl;
 }
+
+.main-hover{
+    @apply opacity-85 hover:opacity-100 transition-opacity duration-300;
+}

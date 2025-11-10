@@ -1,1 +1,19 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
+
+@theme {
+    /* Fonts  */
+    --font-reqaa: "Aref Ruqaa", "serif";
+    --font-tajawal: "Tajawal", sans-serif;
+
+    /* Colors */
+    --color-accent-main: #ceb597;
+    --color-accent-dark: #724742;
+    --color-accent-dark-2: #5e3b37;
+    --color-secondary: #b39a7e;
+    --color-main-text: #3c3635;
+}
+
+body {
+    font-family: var(--font-tajawal);
+}

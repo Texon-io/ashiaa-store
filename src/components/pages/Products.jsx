@@ -14,7 +14,7 @@ function Products() {
     // default category (onLoad)
     const [activeCategory, setActiveCategory] = useState("الكل");
 
-    // 🟢 جلب البيانات
+    // managing data by react query
     const { data: products = [], isLoading, isError, error } = useQuery({
         queryKey: ["products"],
         queryFn: getData,
@@ -23,9 +23,9 @@ function Products() {
         retry: 2,
     });
 
-    const categories = ["الكل", ...new Set(products.map(p => p.Category))];
+    const categories = ["الكل", ...new Set(products.map(p => p.Category))]; // Applying categories dynamically from Google Sheets
 
-    // 🟢 فلترة الداتا حسب التاب
+    // Filtering data items based on their category
     const filteredProducts =
         activeCategory === "الكل"
             ? products
@@ -66,9 +66,8 @@ function Products() {
                 <Spinner /> // Loader Component
             ) : (
                 <div className="products-list grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-                    {currProducts.length === 0 ? (
-                        <Error />  // component for
-                    ) : (
+                    { (
+                        // Rendering the filtered items
                         currProducts.map((product) => (
                             <ProductCard
                                 key={`${product.id}-${product.Name}`}

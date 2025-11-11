@@ -23,7 +23,7 @@ function Card({ data, onAddToCart }) {
         />
       </div>
 
-      {/* Pass only the needed props */}
+      {/* Pass only the needed props about the details of product*/}
       <ProductCardDetails
         name={Name}
         description={Description}

@@ -3,7 +3,7 @@ import CategoryList from "../atoms/CategoryList.jsx";
 function CategoriesList({ categories, activeCategory, setActiveCategory }) {
 
   return (
-    <ul className={`my-4 mt-8 grid max-sm:grid-cols-2 gap-5`}>
+    <ul className={`my-4 mt-8 grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center gap-5`}>
       {categories.map((category) => (
         <CategoryList
           key={category}

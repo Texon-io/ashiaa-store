@@ -1,6 +1,6 @@
 import { useState } from "react";
 import NavIcon from "../atoms/NavIcon.jsx";
-import NavTabs from "../atoms/NavTabs.jsx";
+import NavTabs from "../molecules/NavTabs.jsx";
 import { menuIcon, shoppingIcon } from "../../utils/constants.js";
 import LogoWord from "../atoms/LogoWord.jsx";
 

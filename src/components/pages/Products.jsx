@@ -1,86 +1,95 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import {getData} from "../../api/products.js";
 
 import LogoWord from "../atoms/LogoWord.jsx";
 import CategoriesList from "../molecules/CategoriesList.jsx";
 import Spinner from "../atoms/Spinner.jsx";
 import ProductCard from "../molecules/ProductCard.jsx";
-import Button from "../atoms/Button.jsx";
 import PaginationBar from "../molecules/PaginationBar.jsx";
+import Error from "../atoms/Error.jsx";
 
 function Products() {
-  const categories = ["الكل", "كتب", "أدوات مكتبية", "نوت بوك"];
-  const [activeCategory, setActiveCategory] = useState("الكل");
-  const [currentPage, setCurrentPage] = useState(1);
+    // default category (onLoad)
+    const [activeCategory, setActiveCategory] = useState("الكل");
 
-  const itemsPerPage = 12;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+    // 🟢 جلب البيانات
+    const { data: products = [], isLoading, isError, error } = useQuery({
+        queryKey: ["products"],
+        queryFn: getData,
+        staleTime: 1000 * 60 * 2,
+        refetchOnWindowFocus: true,
+        retry: 2,
+    });
 
-  const {
-    data: products = [],
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: getData,
-    staleTime: 1000 * 60 * 2,
-    refetchOnWindowFocus: true,
-    retry: 2,
-  });
+    const categories = ["الكل", ...new Set(products.map(p => p.Category))];
 
-  if (isError) return <span>Error: {error.message}</span>;
+    // 🟢 فلترة الداتا حسب التاب
+    const filteredProducts =
+        activeCategory === "الكل"
+            ? products
+            : products.filter((item) => item.Category === activeCategory);
 
-  async function getData() {
-    const res = await fetch(
-      "https://script.google.com/macros/s/AKfycby7n6c77trTyqZ9UDymWNAjhmPh8bzU3KTViNiigWo2wGxLf6HQAJ-RcY3hG2eLdKHplg/exec",
+
+    // required data for pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currProducts = filteredProducts.slice(startIndex, endIndex);
+
+    /* This block of code is for :
+    * on changing category tab resets the page number to 1 again
+    * mounts the code each time the active tab changed (when user clicking)
+    */
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [activeCategory]);
+
+    if (isError) return <Error message={error.message}/>  // Error Component
+
+    return (
+        <>
+            {/* Products Header */}
+            <div className="flex max-sm:flex-col justify-between items-start sm:items-center px-2.5 my-4">
+                <LogoWord className="text-4xl text-accent-dark-2">منتجاتنا</LogoWord>
+                {!isLoading && <CategoriesList
+                    categories={categories}
+                    activeCategory={activeCategory}
+                    setActiveCategory={setActiveCategory}
+                />}
+            </div>
+
+            {/* Products List */}
+            {isLoading ? (
+                <Spinner /> // Loader Component
+            ) : (
+                <div className="products-list grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    {currProducts.length === 0 ? (
+                        <Error />  // component for
+                    ) : (
+                        currProducts.map((product) => (
+                            <ProductCard
+                                key={`${product.id}-${product.Name}`}
+                                data={product}
+                            />
+                        ))
+                    )}
+                </div>
+            )}
+
+            {/* Pagination */}
+            {!isLoading && filteredProducts.length > 0 && (
+                <PaginationBar
+                    products={filteredProducts}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    itemsPerPage={itemsPerPage}
+                />
+            )}
+        </>
     );
-    if (!res.ok) throw new Error("Failed to fetch data");
-
-    return res?.json();
-  }
-  return (
-    <>
-      {/* Products page header*/}
-      <div className={`flex justify-between items-center px-2.5 my-4`}>
-        <LogoWord className={`text-4xl text-accent-dark-2`}>منتجاتنا</LogoWord>
-        <CategoriesList
-          categories={categories}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
-      </div>
-
-      {/*  Products Cards*/}
-
-      {/*  Spinner  */}
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <div className={`products-list grid justify-center grid-cols-4 gap-5`}>
-          {activeCategory ==="الكل" ? products.slice(startIndex, endIndex).map((product) => (
-              <ProductCard key={product.id} data={product} />
-          )) :
-              products.filter(item => item.Category === activeCategory ).slice(startIndex, endIndex).map((product) => (
-                  <ProductCard data={product} />
-              ))
-          }
-        </div>
-      )}
-
-      {/* Pagination Bar */}
-      {!isLoading && (
-        <PaginationBar
-          products={products}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          items
-          itemsPerPage={itemsPerPage}
-        />
-      )}
-    </>
-  );
 }
 
 export default Products;

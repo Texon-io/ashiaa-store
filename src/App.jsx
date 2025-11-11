@@ -4,14 +4,11 @@ import Navbar from "./components/molecules/Navbar.jsx";
 import Footer from "./components/molecules/Footer.jsx";
 
 function App() {
-
-
   return (
     <>
       <Navbar />
 
-
-      <main className={`p-6 px-8`}>
+      <main className={`p-6 px-8 mt-20`}>
         <Outlet />
       </main>
 

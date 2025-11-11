@@ -16,9 +16,9 @@
 
 body {
   font-family: var(--font-tajawal);
-    direction: rtl;
+  direction: rtl;
 }
 
-.main-hover{
-    @apply opacity-90 hover:opacity-100 transition-opacity duration-300;
+.main-hover {
+  @apply opacity-90 hover:opacity-100 transition-opacity duration-300;
 }

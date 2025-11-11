@@ -17,7 +17,10 @@
 html{
     scroll-behavior: smooth;
 }
-
+::selection{
+    background-color: var(--color-accent-main);
+    color: var(--color-white);
+}
 body {
   font-family: var(--font-tajawal);
   direction: rtl;

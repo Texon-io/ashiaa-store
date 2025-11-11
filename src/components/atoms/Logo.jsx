@@ -1,6 +1,6 @@
-function Logo({children}) {
+function Logo({children, className}) {
     return (
-        <div className="nav-logo font-reqaa text-2xl">{children}</div>
+        <div className={`nav-logo font-reqaa text-2xl ${className ||""}`}>{children}</div>
     )
 }
 

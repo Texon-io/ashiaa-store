@@ -11,7 +11,7 @@ function App() {
 
       <main className={`p-6 px-8 mt-14`}>
         <Outlet />
-          <Button variant={"dark"}>hi</Button>
+          <Button type={"link"} to={"/products"} variant={"dark"}>hi</Button>
       </main>
 
       <Footer />

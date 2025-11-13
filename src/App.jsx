@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 
 import Navbar from "./components/organisms/Navbar.jsx";
 import Footer from "./components/molecules/Footer.jsx";
+import Button from "./components/atoms/Button.jsx";
 
 function App() {
   return (

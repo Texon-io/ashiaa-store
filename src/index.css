@@ -12,6 +12,9 @@
   --color-accent-dark-2: #5e3b37;
   --color-secondary: #b39a7e;
   --color-main-text: #3c3635;
+  --color-secondary-text-light: #f2dfc7;
+  --color-accent-main-light: #dec8ad;
+
 }
 html {
   scroll-behavior: smooth;

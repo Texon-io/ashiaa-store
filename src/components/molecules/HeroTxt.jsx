@@ -10,7 +10,7 @@ function HeroTxt() {
       <p className="text-xl text-secondary-text-light mb-8">
         اكتشف كتبًا تُلامس روحك، وأدوات مكتبية تُلهم تفاصيل يومك.
       </p>
-      <Button variant="secondary" type="link" path="/products">
+      <Button type="link" to="/products" variant="secondary">
         تسوق الأن
       </Button>
     </div>

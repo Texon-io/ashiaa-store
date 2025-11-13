@@ -8,21 +8,6 @@ function FooterQuickLinks() {
         <FooterLink path="/">الرئيسية</FooterLink>
         <FooterLink path="/products">المنتجات</FooterLink>
         <FooterLink path="/contact">تواصل معنا</FooterLink>
-        {/* <li>
-          <a href="#" className="hover:text-accent-dark text-base transition">
-            الرئيسية
-          </a>
-        </li>
-        <li>
-          <a href="#" className="hover:text-accent-dark text-base transition">
-            المنتجات
-          </a>
-        </li>
-        <li>
-          <a href="#" className="hover:text-accent-dark text-base transition">
-            تواصل معنا
-          </a>
-        </li> */}
       </ul>
     </div>
   );

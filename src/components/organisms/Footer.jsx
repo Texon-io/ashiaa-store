@@ -1,7 +1,7 @@
-import FooterLogo from "./FooterLogo";
+import FooterLogo from "../molecules/FooterLogo";
 import SecDivider from "../atoms/SecDivider";
-import FooterQuickLinks from "./FooterQuickLinks";
-import FooterSocials from "./FooterSocials";
+import FooterQuickLinks from "../molecules/FooterQuickLinks";
+import FooterSocials from "../molecules/FooterSocials";
 
 function Footer() {
   return (

@@ -42,3 +42,12 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+#quote {
+  background-image: url("/images/quote-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 90%;
+  margin: 2.8rem auto;
+}

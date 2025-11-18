@@ -6,7 +6,7 @@ import SecHeading from "../atoms/SecHeading.jsx";
 
 function Contact() {
   return (
-    <>
+    <div className={`p-6 px-8 mt-14`}>
 
       {/*  Section heading*/}
         <SecHeading>تواصل معنا</SecHeading>
@@ -78,7 +78,7 @@ function Contact() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

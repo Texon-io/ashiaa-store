@@ -54,7 +54,7 @@ function Products() {
   if (isError) return <Error message={error.message} />; // Error Component
 
   return (
-    <>
+    <div className={`p-6 px-8 mt-14`}>
       {/* Products Header */}
       <div className="flex max-sm:flex-col justify-between items-start sm:items-center px-2.5 my-4">
         <LogoWord className="text-4xl text-accent-dark-2">منتجاتنا</LogoWord>
@@ -93,7 +93,7 @@ function Products() {
           itemsPerPage={itemsPerPage}
         />
       )}
-    </>
+    </div>
   );
 }
 

@@ -7,9 +7,8 @@ import SecHeading from "../atoms/SecHeading.jsx";
 function Contact() {
   return (
     <div className={`p-6 px-8 mt-14`}>
-
       {/*  Section heading*/}
-        <SecHeading>تواصل معنا</SecHeading>
+      <SecHeading>تواصل معنا</SecHeading>
 
       <div className="border border-accent-dark-2/50 rounded-xl p-5 px-4 sm:px-8 bg-accent-main/10 flex flex-col gap-6">
         {/* Section title */}

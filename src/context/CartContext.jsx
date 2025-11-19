@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { toast } from "sonner";
 
 const CartContext = createContext();
 
@@ -7,7 +8,7 @@ function CartProvider({ children }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product) => {
-    console.log("from add to cart ==>>", product);
+    toast.success("تم إضافة المنتج إلى السلة!");
     setCartItems((prev) => {
       const exists = prev.find((item) => item.id === product.id);
       if (exists) {

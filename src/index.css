@@ -58,3 +58,6 @@ body {
   background-repeat: no-repeat;
   cursor: pointer;
 }
+#cart-item:not(:last-child) {
+  border-bottom: 1px solid var(--color-accent-main-light);
+}

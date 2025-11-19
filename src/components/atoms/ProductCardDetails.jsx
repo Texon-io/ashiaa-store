@@ -1,8 +1,10 @@
 import Button from "./Button.jsx";
 
 const ProductCardDetails = ({
+  id,
   name,
   description,
+  image,
   price,
   stock,
   onAddToCart,
@@ -30,7 +32,11 @@ const ProductCardDetails = ({
       </div>
 
       {/* add to cart button */}
-      <Button onClick={onAddToCart} className="w-full mx-0 mt-2" size={"sm"}>
+      <Button
+        onClick={() => onAddToCart({ name, price, image, id })}
+        className="w-full mx-0 mt-2"
+        size={"sm"}
+      >
         أضف إلى السلة
       </Button>
     </div>

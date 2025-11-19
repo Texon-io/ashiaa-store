@@ -1,8 +1,13 @@
 import ProductCardDetails from "../atoms/ProductCardDetails.jsx";
 import { placeHolder } from "../../utils/constants.js";
+import { useCart } from "../../hooks/useCart.jsx";
 
-function Card({ data, onAddToCart, showModal, setData }) {
+function Card({ data, showModal, setData }) {
+  // Add to cart
+  const { addToCart } = useCart();
   const tempImg = placeHolder;
+
+  console.log("FROM PRODUCT CARD =>>", data);
 
   const {
     ImageURL,
@@ -11,6 +16,7 @@ function Card({ data, onAddToCart, showModal, setData }) {
     Category = "All",
     Price = 0,
     Stock = 0,
+    id,
   } = data;
 
   return (
@@ -31,12 +37,14 @@ function Card({ data, onAddToCart, showModal, setData }) {
 
       {/* Pass only the needed props about the details of product*/}
       <ProductCardDetails
+        id={id}
         name={Name}
+        image={ImageURL}
         description={Description}
         category={Category}
         price={Price}
         stock={Stock}
-        onAddToCart={onAddToCart}
+        onAddToCart={addToCart}
       />
     </div>
   );

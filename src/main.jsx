@@ -9,6 +9,7 @@ import Contact from "./components/pages/Contact.jsx";
 import Products from "./components/pages/Products.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { CartProvider } from "./context/CartContext.jsx";
 
 const queryClient = new QueryClient();
 
@@ -16,16 +17,17 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-
-      <BrowserRouter>
-        <Routes>
-          <Route path={"/"} element={<App />}>
-            <Route index element={<HomePage />} />
-            <Route path={"products"} element={<Products />} />
-            <Route path={"contact"} element={<Contact />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path={"/"} element={<App />}>
+              <Route index element={<HomePage />} />
+              <Route path={"products"} element={<Products />} />
+              <Route path={"contact"} element={<Contact />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </QueryClientProvider>
-  </StrictMode>,
+  </StrictMode>
 );

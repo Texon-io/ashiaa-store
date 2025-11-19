@@ -19,7 +19,7 @@ function Button({
     secondary: base + " text-accent-dark hover:bg-accent-dark hover:text-white",
     dark:
       base +
-      " border-1 border-secondary-text-light text-secondary-text-light bg-accent-dark hover:bg-secondary-text-light hover:text-accent-dark transition-colors duration-300",
+      " border-1 border-secondary-text-light text-secondary-text-light bg-accent-dark hover:bg-secondary-text-light hover:text-accent-dark hover:border-accent-dark transition-colors duration-300",
     pagination:
       " cursor-pointer rounded-md bg-accent-main/65 hover:bg-accent-main/75 transition-colors duration-300 disabled:opacity-50",
   };

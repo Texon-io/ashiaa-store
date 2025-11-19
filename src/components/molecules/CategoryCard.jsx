@@ -1,10 +1,11 @@
 import { Link } from "react-router";
 
 function CategoryCard({ imgPath, to, children }) {
+  console.log(imgPath);
   return (
     <div
       id="card"
-      className={`bg-green-500 bg-[url('${imgPath}')] h-48 sm:h-56 lg:h-64 rounded-xl overflow-hidden shadow-md`}
+      className={`bg-accent-dark-2 bg-[url('${imgPath}')] h-48 sm:h-56 lg:h-64 rounded-xl overflow-hidden shadow-md`}
     >
       <Link
         to={to}

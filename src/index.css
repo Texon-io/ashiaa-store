@@ -58,6 +58,20 @@ body {
   background-repeat: no-repeat;
   cursor: pointer;
 }
+/* #cart-items {
+  scrollbar-track-color: var(--color-accent-main-light);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-main) var(--color-accent-main-light);
+} */
+#cart-items::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--color-accent-main-light);
+}
+#cart-items::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent-dark-2);
+  border-radius: 10px;
+  width: 5px;
+}
 #cart-item:not(:last-child) {
   border-bottom: 1px solid var(--color-accent-main-light);
 }

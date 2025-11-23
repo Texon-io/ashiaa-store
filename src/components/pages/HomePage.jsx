@@ -9,11 +9,7 @@ function HomePage() {
   let bestSeller;
 
   // Fetching bestseller by the same API
-  const {
-    data: products,
-    isSuccess,
-    error,
-  } = useProducts();
+  const { data: products, isSuccess, error } = useProducts();
 
   // on success assigning first 3 bestsellers products in variable
   if (isSuccess) {

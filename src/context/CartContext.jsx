@@ -15,7 +15,7 @@ function CartProvider({ children }) {
         return prev.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item
+            : item,
         );
       }
       return [...prev, { ...product, quantity: 1 }];
@@ -28,8 +28,8 @@ function CartProvider({ children }) {
   const increaseQuantity = (id) =>
     setCartItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
     );
 
   const decreaseQuantity = (id) =>
@@ -37,8 +37,8 @@ function CartProvider({ children }) {
       prev.map((item) =>
         item.id === id
           ? { ...item, quantity: Math.max(1, item.quantity - 1) }
-          : item
-      )
+          : item,
+      ),
     );
 
   const clearCart = () => setCartItems([]);
@@ -47,7 +47,7 @@ function CartProvider({ children }) {
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
 
   const toggleCart = () => setIsCartOpen((prev) => !prev);

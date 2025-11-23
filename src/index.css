@@ -13,6 +13,7 @@
   --color-secondary: #b39a7e;
   --color-main-text: #3c3635;
   --color-secondary-text-light: #f2dfc7;
+  --color-card-bg: #f7eee1;
   --color-accent-main-light: #dec8ad;
 }
 html {
@@ -50,7 +51,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   width: 90%;
-  margin: 2.8rem auto;
+  margin: 4rem auto;
 }
 #card {
   background-size: cover;

@@ -11,7 +11,7 @@ function App() {
     <>
       <Navbar />
       <main className={``}>
-        <Toaster richColors position="top-center" />
+        <Toaster richColors position="top-right" />
 
         <Outlet />
       </main>

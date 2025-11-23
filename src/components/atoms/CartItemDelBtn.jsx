@@ -18,7 +18,7 @@ function CartItemDelBtn({ id }) {
         });
       }}
     >
-      <Trash size={22} color="#f11e1e" strokeWidth={3} />
+      <Trash size={22} color="#f11e1e" strokeWidth={2} />
     </button>
   );
 }

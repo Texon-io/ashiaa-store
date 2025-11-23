@@ -13,7 +13,6 @@ function BestSellingSec() {
   if (isSuccess) {
     bestSeller = products.filter((p) => p.BestSeller).slice(0, 4) || [];
 
-    console.log(bestSeller);
   }
 
   // on error console this error

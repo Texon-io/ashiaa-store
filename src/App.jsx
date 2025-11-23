@@ -8,8 +8,13 @@ import HomePage from "./components/pages/HomePage.jsx";
 import Contact from "./components/pages/Contact.jsx";
 import Products from "./components/pages/Products.jsx";
 import ScrollToTop from "./utils/ScrollToTop.jsx";
+import {useEffect} from "react";
 
 function App() {
+
+    useEffect(()=>{
+        document.title = "متجر بائعة الكتب"
+    }, [])
   return (
     <>
       <Navbar />

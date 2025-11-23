@@ -3,6 +3,7 @@ import BestSellingSec from "../organisms/BestSellingSec";
 import CategoriesSec from "../organisms/CategoriesSec";
 import HeroSec from "../organisms/HeroSec";
 import QuoteSec from "../organisms/QuoteSec";
+import useProducts from "../../hooks/useProducts.js";
 
 function HomePage() {
   // variable to store bestseller products

@@ -72,7 +72,7 @@ function Products() {
                   <Skeleton height={200} className={`rounded-xl`} />{" "}
                   {/* Image */}
                   <Skeleton
-                    count={3}
+                    count={2}
                     height={20}
                     style={{ marginTop: "0.5rem" }}
                   />{" "}

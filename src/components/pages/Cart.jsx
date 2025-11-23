@@ -5,7 +5,7 @@ import CartHeader from "../organisms/CartHeader";
 import CartItemsList from "../organisms/CartItemsList";
 
 export default function Cart() {
-  const { isCartOpen } = useCart();
+  const { isCartOpen, cartItems } = useCart();
 
   return (
     <div>

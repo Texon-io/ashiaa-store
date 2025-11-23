@@ -1,10 +1,13 @@
 import { createContext, useState } from "react";
 import { toast } from "sonner";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const CartContext = createContext();
 
 function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+  // Get cart items from local storage
+  const [cartItems, setCartItems] = useLocalStorage("cart", []);
+
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product) => {

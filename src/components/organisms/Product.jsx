@@ -2,11 +2,18 @@ import { motion } from "framer-motion";
 
 import Button from "../atoms/Button.jsx";
 import { placeHolder } from "../../utils/constants.js";
-import {useCart} from "../../hooks/useCart.jsx";
+import { useCart } from "../../hooks/useCart.jsx";
 
 function Product({ showModal, data }) {
-  const { ImageURL:image, Name:name, Description:desc, Price:price, Stock:stock, id } = data;
-  const {addToCart} = useCart();
+  const {
+    ImageURL: image,
+    Name: name,
+    Description: desc,
+    Price: price,
+    Stock: stock,
+    id,
+  } = data;
+  const { addToCart } = useCart();
   const tempImg = placeHolder;
 
   function handleCloseModal(e) {
@@ -43,10 +50,17 @@ function Product({ showModal, data }) {
               <span className={`text-2xl font-semibold`}>{price} ج.م</span>
               <span>الكمية: {stock}</span>
             </div>
-            <Button onClick={() => addToCart({ name, price, image, id })} className={`w-full `}>أضف إلى السلة</Button>
+            <Button
+              onClick={() => addToCart({ name, price, image, id })}
+              className={`w-full `}
+            >
+              أضف إلى السلة
+            </Button>
           </div>
         </div>
-        <div className={`w-1/2 rounded-l-2xl p-8 bg-accent-main/50 h-full flex justify-center items-center`}>
+        <div
+          className={`w-1/2 rounded-l-2xl p-8 bg-accent-main/50 h-full flex justify-center items-center`}
+        >
           <div
             className={`w-full h-5/6 flex justify-center items-center object-contain`}
           >

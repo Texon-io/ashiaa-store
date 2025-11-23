@@ -19,12 +19,7 @@ function Products() {
   const [activeCategory, setActiveCategory] = useState("الكل");
 
   // managing data by react query
-  const {
-    data: products = [],
-    isLoading,
-    isError,
-    error,
-  } = useProducts();
+  const { data: products = [], isLoading, isError, error } = useProducts();
 
   const categories = ["الكل", ...new Set(products.map((p) => p.Category))]; // Applying categories dynamically from Google Sheets
 

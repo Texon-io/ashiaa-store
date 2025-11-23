@@ -12,7 +12,6 @@ function BestSellingSec() {
   // on success assigning first 3 bestsellers products in variable
   if (isSuccess) {
     bestSeller = products.filter((p) => p.BestSeller).slice(0, 4) || [];
-
   }
 
   // on error console this error

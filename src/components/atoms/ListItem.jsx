@@ -22,7 +22,7 @@ function ListItem({
 
   // Default horizontal layout (for contact info)
   return (
-    <li className="flex items-center gap-3 text-accent-dark">
+    <li className="flex max-[540px]:flex-col items-start sm:items-center gap-3 text-accent-dark">
       <div className={iconStyle}>{children}</div>
       <div className="flex flex-col gap-1 font-medium">
         <h5 className="opacity-80">{headTitle}</h5>

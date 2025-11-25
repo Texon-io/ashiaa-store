@@ -59,11 +59,6 @@ body {
   background-repeat: no-repeat;
   cursor: pointer;
 }
-/* #cart-items {
-  scrollbar-track-color: var(--color-accent-main-light);
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-accent-main) var(--color-accent-main-light);
-} */
 #cart-items::-webkit-scrollbar {
   width: 5px;
   background-color: var(--color-accent-main-light);

@@ -20,7 +20,7 @@ function App() {
 
       <ScrollToTop />
       <main>
-        <Toaster richColors position="top-right" />
+        <Toaster richColors position="top-center" />
 
         <Routes>
           <Route path="/" element={<HomePage />} />

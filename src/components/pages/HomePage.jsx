@@ -25,8 +25,8 @@ function HomePage() {
     <div>
       <HeroSec />
       <AboutSec />
-      <BestSellingSec />
       <QuoteSec />
+      <BestSellingSec />
       <CategoriesSec />
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import {useSearchParams} from "react-router";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -15,8 +16,32 @@ function Products() {
   const [showProductModal, setShowProductModal] = useState(false);
   const [dataToShow, setDataToShow] = useState({});
 
-  // default category (onLoad)
+
+    // default category (onLoad)
   const [activeCategory, setActiveCategory] = useState("الكل");
+
+    // searching for category in URL params
+    const [searchParams] = useSearchParams();
+
+    useEffect(() => {
+        const categoryFromURL = searchParams.get("category");
+        if (categoryFromURL) {
+            switch (categoryFromURL){
+                case "books":
+                    setActiveCategory("كتب");
+                    break;
+                case "notes":
+                    setActiveCategory("نوت بوك");
+                    break;
+                case "stationary":
+                    setActiveCategory("أدوات مكتبية");
+                    break;
+                default:
+                    setActiveCategory("الكل");
+            }
+        }
+    }, [searchParams]);
+
 
   // managing data by react query
   const { data: products = [], isLoading, isError, error } = useProducts();

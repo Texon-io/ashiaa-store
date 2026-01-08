@@ -12,36 +12,35 @@ import SplashScreen from "./components/atoms/SplashScreen.jsx"; // السبلا�
 import { useEffect, useState } from "react";
 
 function App() {
-    const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(true);
 
-    useEffect(() => {
-        document.title = "متجر بائعة الكتب";
+  useEffect(() => {
+    document.title = "متجر أشياء";
 
-        const timer = setTimeout(() => setShowSplash(false), 5000); // 5 ثواني
-        return () => clearTimeout(timer);
-    }, []);
+    const timer = setTimeout(() => setShowSplash(false), 5000); // 5 ثواني
+    return () => clearTimeout(timer);
+  }, []);
 
-    return (
-        <>
-            {showSplash && <SplashScreen />}
+  return (
+    <>
+      {showSplash && <SplashScreen />}
 
-
-                <>
-                    <Navbar />
-                    <ScrollToTop />
-                    <main>
-                        <Toaster richColors position="top-center" />
-                        <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/products" element={<Products />} />
-                            <Route path="/contact" element={<Contact />} />
-                        </Routes>
-                    </main>
-                    <Cart />
-                    <Footer />
-                </>
-        </>
-    );
+      <>
+        <Navbar />
+        <ScrollToTop />
+        <main>
+          <Toaster richColors position="top-center" />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Cart />
+        <Footer />
+      </>
+    </>
+  );
 }
 
 export default App;

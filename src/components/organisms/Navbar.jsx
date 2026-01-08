@@ -14,7 +14,7 @@ function Navbar() {
   return (
     <nav className="px-8 py-4 flex justify-between items-center text-accent-dark bg-white mb-5 fixed top-0 right-0 left-0 z-50">
       {/*Navbar LogoWord */}
-      <LogoWord>متجر بائعة الكتب</LogoWord>
+      <LogoWord>متجر أشياء</LogoWord>
 
       {/* Navbar Tabs Horizontal version*/}
       <NavTabs variant="horizontal" />
@@ -22,10 +22,11 @@ function Navbar() {
       {/* Navbar Icons */}
       <div className="flex gap-4">
         <NavIcon className={`relative`} onClick={toggleCart} src={shoppingIcon}>
-            {!itemCount || itemCount === 0 ? null :(<div
-                className="absolute bg-secondary top-0 right-0 rounded-full w-[15px] h-[15px] text-white/85 font-medium text-[12px] flex items-center justify-center leading-none">
-                {itemCount}
-            </div>)}
+          {!itemCount || itemCount === 0 ? null : (
+            <div className="absolute bg-secondary top-0 right-0 rounded-full w-[15px] h-[15px] text-white/85 font-medium text-[12px] flex items-center justify-center leading-none">
+              {itemCount}
+            </div>
+          )}
         </NavIcon>
         <NavIcon
           className="max-md:block hidden"

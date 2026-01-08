@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "../api/products.js";
 
-export default function useProducts() {
-  // managing data by react query
+// function for fetching data from Google Apps Script
+
+export default function useProducts(category = "", enabled = true) {
   return useQuery({
-    queryKey: ["products"],
-    queryFn: getData,
-    staleTime: 1000 * 20,
-    refetchInterval: 20000,
-    refetchIntervalInBackground: false,
+    queryKey: ["products", category],
+    queryFn: () => getData(category),
+    enabled,
+    staleTime: 1000 * 60 * 5,
     retry: 2,
   });
 }

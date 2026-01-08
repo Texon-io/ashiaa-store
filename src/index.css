@@ -1,10 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Aref+Ruqaa:wght@400;700&display=swap");
+
 @import "tailwindcss";
 
 @theme {
   /* Fonts  */
   --font-reqaa: "Aref Ruqaa", "serif";
-  --font-tajawal: "Tajawal", sans-serif;
+  --font-almarai: "Almarai", sans-serif;
 
   /* Colors */
   --color-accent-main: #ceb597;
@@ -15,7 +16,27 @@
   --color-secondary-text-light: #f2dfc7;
   --color-card-bg: #f7eee1;
   --color-accent-main-light: #dec8ad;
+  /* ====== */
+  /* اللون الأساسي والدرجات الفاتحة منه (مستوحى من ورق الكرافت الفاخر) */
+  --color-accent-main: #c4a484; /* بني كرافت متوسط - متناسق جداً مع الأدوات المكتبية */
+  --color-accent-main-light: #e5d3c0; /* درجة بيج فاتحة جداً للخلفيات البسيطة */
+
+  /* الدرجات الغامقة (مستوحاة من اللوجو وألوان القهوة) */
+  --color-accent-dark: #3e3431; /* البني الغامق الأساسي للمتجر */
+  --color-accent-dark-2: #2a2321; /* أغمق درجة بني للحالات الخاصة (Hover) */
+
+  /* الألوان المساعدة (Secondary) للتباين */
+  --color-secondary: #8d7561; /* بني متوسط للحدود أو الأيقونات */
+  --color-secondary-text-light: #f5ede4; /* لون نص فاتح جداً يوضع فوق الخلفيات الغامقة */
+
+  /* خلفيات الموقع والكروت */
+  --color-bg: #fafafa; /* خلفية الموقع العامة (هادئة لتبرز المنتجات) */
+  --color-card-bg: #fdfaf7; /* خلفية كروت المنتجات (بيج بلمسة دافئة) */
+
+  /* النصوص الأساسية */
+  --color-main-text: #4a4a4a;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -24,7 +45,7 @@ html {
   color: var(--color-white);
 }
 body {
-  font-family: var(--font-tajawal);
+  font-family: var(--font-almarai);
   color: var(--color-main-text);
   direction: rtl;
 }
@@ -71,4 +92,3 @@ body {
 #cart-item:not(:last-child) {
   border-bottom: 1px solid var(--color-accent-main-light);
 }
-

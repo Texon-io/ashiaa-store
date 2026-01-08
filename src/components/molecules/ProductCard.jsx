@@ -8,12 +8,12 @@ function Card({ data, showModal, setData }) {
   const tempImg = placeHolder;
 
   const {
-    ImageURL,
-    Name = "اسم المنتج",
-    Description = "منتج مكتبي رفيع من بائعة الكتب",
-    Category = "All",
-    Price = 0,
-    Stock = 0,
+    image,
+    name = "اسم المنتج",
+    description = "منتج مكتبي رفيع من بائعة الكتب",
+    category = "All",
+    price = 0,
+    stock = 0,
     id,
   } = data;
 
@@ -28,20 +28,20 @@ function Card({ data, showModal, setData }) {
       >
         <img
           className="w-full h-[305px] object-cover transition-transform duration-500 hover:scale-105"
-          src={ImageURL || tempImg}
-          alt={`${Category}: ${Name}`}
+          src={image || tempImg}
+          alt={`${category}: ${name}`}
         />
       </div>
 
       {/* Pass only the needed props about the details of product*/}
       <ProductCardDetails
         id={id}
-        name={Name}
-        image={ImageURL}
-        description={Description}
-        category={Category}
-        price={Price}
-        stock={Stock}
+        name={name}
+        image={image}
+        description={description}
+        category={category}
+        price={price}
+        stock={stock}
         onAddToCart={addToCart}
       />
     </div>

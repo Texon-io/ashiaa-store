@@ -1,12 +1,19 @@
 /*
- * Function for fetching dat
- * the function pass data to react query
+ * Function for fetching data from Google Apps Script
+ * Supports optional category filtering
  */
-export async function getData() {
-  const res = await fetch(
-    "https://script.google.com/macros/s/AKfycby7n6c77trTyqZ9UDymWNAjhmPh8bzU3KTViNiigWo2wGxLf6HQAJ-RcY3hG2eLdKHplg/exec",
-  );
-  if (!res.ok) throw new Error("Failed to fetch data");
+export async function getData(category = "") {
+  // Google Apps Script URL
+  const GOOGLE_API_URL =
+    "https://script.google.com/macros/s/AKfycbwyMMVSWDE42EA_d4OoDe9kbraLHadD-MrP6K8BEREpvp5VI5iqRL1HKtIpeRG9p5mmUQ/exec";
 
-  return res?.json();
+  const url = category
+    ? `${GOOGLE_API_URL}?category=${encodeURIComponent(category)}`
+    : GOOGLE_API_URL;
+
+  const res = await fetch(url);
+
+  if (!res.ok) throw new Error("Failed to fetch data from Google Sheets");
+
+  return res.json();
 }

@@ -28,7 +28,7 @@ const map = {
   notes: "دفاتر",
   pens: "أقلام",
   bags: "شنط",
-  mags: "مجات",
+  mugs: "مجات",
   boxs: "باكيدچات أو بوكسات",
   "office-organizers": "منظمات مكتب",
   others: "أخرى",
@@ -142,8 +142,10 @@ function Products() {
       </AnimatePresence>
 
       <div className="p-6 px-8 mt-14">
-        <div className="flex max-sm:flex-col justify-between items-start sm:items-center px-2.5 my-4">
-          <LogoWord className="text-4xl text-accent-dark-2">منتجاتنا</LogoWord>
+        <div className="flex max-sm:flex-col justify-between items-start sm:items-center my-4 ">
+          <LogoWord className="text-4xl text-accent-dark-2 pr-2">
+            منتجاتنا
+          </LogoWord>
 
           {!finalLoading && (
             <CategoriesList

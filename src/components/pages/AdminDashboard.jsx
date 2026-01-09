@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
+import useAddProduct from "../../hooks/useAddProduct";
 import { Toaster, toast } from "sonner";
 import {
   BookOpen,
@@ -135,6 +136,56 @@ export default function AddProduct() {
     return () => clearInterval(timer);
   }, [isLocked, timeLeft]);
 
+  /**
+   * Core logic to handle Cloudinary upload and Google Sheets data transmission
+   * @param {Object} formDataValues - The product details from the form
+   */
+  const uploadProductLogic = async (formDataValues) => {
+    if (!selectedFile) throw new Error("Please select a product image");
+    if (!formDataValues.category)
+      throw new Error("Please select a product category");
+
+    // 1. Upload assets to Cloudinary
+    const imageData = new FormData();
+    imageData.append("file", selectedFile);
+    imageData.append("upload_preset", CLOUDINARY_PRESET);
+
+    const cloudRes = await fetch(CLOUDINARY_URL, {
+      method: "POST",
+      body: imageData,
+    });
+
+    const cloudJson = await cloudRes.json();
+    if (!cloudJson.secure_url) throw new Error("Cloudinary upload failed");
+
+    // 2. Transmit data to Google Sheets via Web App
+    // We send it as plain text to avoid CORS preflight issues with Apps Script,
+    // then parse it as JSON on the server side.
+    const productData = {
+      ...formDataValues,
+      image: cloudJson.secure_url,
+      timestamp: new Date().toLocaleString("ar-EG"),
+    };
+
+    const response = await fetch(GOOGLE_API_URL, {
+      method: "POST",
+      // Essential: Use text/plain to bypass complex CORS preflight while sending JSON string
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(productData),
+    });
+
+    if (!response.ok && response.status !== 0) {
+      throw new Error("Failed to send data to Google Sheets");
+    }
+
+    return "Done";
+  };
+
+  //  Use mutateAsync instead of calling uploadProductLogic directly
+  const addProductMutation = useAddProduct(uploadProductLogic);
+
   // Format seconds to MM:SS string
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -209,43 +260,6 @@ export default function AddProduct() {
     }
   };
 
-  const uploadProductLogic = async (formDataValues) => {
-    if (!selectedFile) throw new Error("Please select a product image");
-    if (!formDataValues.category)
-      throw new Error("Please select a product category");
-
-    // 1. Upload assets to Cloudinary
-    const imageData = new FormData();
-    imageData.append("file", selectedFile);
-    imageData.append("upload_preset", CLOUDINARY_PRESET);
-
-    const cloudRes = await fetch(CLOUDINARY_URL, {
-      method: "POST",
-      body: imageData,
-    });
-
-    const cloudJson = await cloudRes.json();
-    if (!cloudJson.secure_url) throw new Error("Cloudinary upload failed");
-
-    // 2. Transmit data to Google Sheets via Web App
-    const product = {
-      ...formDataValues,
-      image: cloudJson.secure_url,
-      timestamp: new Date().toLocaleString("ar-EG"),
-    };
-
-    await fetch(GOOGLE_API_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain",
-      },
-      body: JSON.stringify(product),
-    });
-
-    return "Done";
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
@@ -260,12 +274,10 @@ export default function AddProduct() {
       bestSeller: bestSeller,
     };
 
-    setLoading(true);
-
-    toast.promise(uploadProductLogic(formDataValues), {
+    // 3. Use mutateAsync instead of calling uploadProductLogic directly
+    toast.promise(addProductMutation.mutateAsync(formDataValues), {
       loading: "Processing product data...",
       success: () => {
-        setLoading(false);
         setImagePreview(null);
         setSelectedFile(null);
         setBestSeller(false);
@@ -273,10 +285,7 @@ export default function AddProduct() {
         form.reset();
         return "Product added successfully! 🎉";
       },
-      error: (err) => {
-        setLoading(false);
-        return `${err.message}`;
-      },
+      error: (err) => `${err.message}`,
     });
   };
 

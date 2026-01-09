@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useQueryClient, useQuery } from "@tanstack/react-query"; // أضفنا useQuery
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { getData } from "../api/products";
 
 const ALL_CATEGORIES = [
@@ -12,50 +12,63 @@ const ALL_CATEGORIES = [
   "أخرى",
 ];
 
+/**
+ * Hook to fetch all products and prefetch category-specific data
+ */
 export default function useAllProducts(enabled = true) {
   const queryClient = useQueryClient();
 
   // Fetch main "all" data
-  const { data: mainAllData } = useQuery({
+  const {
+    data: mainAllData,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["products", ""],
     queryFn: () => getData(""),
-    enabled: enabled, // Enable or disable based on the parameter
-    staleTime: 1000 * 60 * 5, // 5 min
+    enabled: enabled,
+
+    // Keep consistent with useProducts logic
+    staleTime: 1000 * 60 * 1,
+    gcTime: 1000 * 60 * 30,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   });
 
-  // Prefetch all categories data in the background
+  // Prefetch all categories data in the background to ensure smooth navigation
   useEffect(() => {
     if (!enabled) return;
 
     ALL_CATEGORIES.forEach((cat) => {
+      // Only prefetch if data is not already in cache or is stale
       if (!queryClient.getQueryData(["products", cat])) {
         queryClient.prefetchQuery({
           queryKey: ["products", cat],
           queryFn: () => getData(cat),
+          staleTime: 1000 * 60 * 1,
         });
       }
     });
   }, [enabled, queryClient]);
 
-  // Collect all products from cache or main data
+  // Aggregate products from the most reliable source available
   const products = useMemo(() => {
     if (!enabled) return [];
 
-    // If we have main "all" data, use it
+    // Priority 1: Current fetch result
     if (mainAllData) return mainAllData;
 
-    // Fallback to cached data
+    // Priority 2: Existing cache for the "all" key
     const allCached = queryClient.getQueryData(["products", ""]);
     if (allCached) return allCached;
 
-    // Get all data from individual category caches
+    // Priority 3: Combine data from individual category caches
     return ALL_CATEGORIES.flatMap(
       (cat) => queryClient.getQueryData(["products", cat]) || []
     );
   }, [enabled, queryClient, mainAllData]);
 
-  // If the hook is enabled and products are still empty, we are loading
   const isLoading = enabled && products.length === 0;
 
-  return { products, isLoading };
+  return { products, isLoading, isError, error };
 }

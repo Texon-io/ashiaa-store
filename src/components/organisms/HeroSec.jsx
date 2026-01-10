@@ -1,4 +1,3 @@
-import { Mouse } from "lucide-react";
 import HeroImg from "../atoms/HeroImg";
 import HeroTxt from "../molecules/HeroTxt";
 

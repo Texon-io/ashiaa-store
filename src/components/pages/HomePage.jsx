@@ -4,6 +4,8 @@ import CategoriesSec from "../organisms/CategoriesSec";
 import HeroSec from "../organisms/HeroSec";
 import QuoteSec from "../organisms/QuoteSec";
 import useProducts from "../../hooks/useProducts.js";
+import Hero from "../organisms/Hero.jsx";
+import About from "../organisms/About.jsx";
 
 function HomePage() {
   // variable to store bestseller products
@@ -23,7 +25,8 @@ function HomePage() {
 
   return (
     <div>
-      <HeroSec />
+      <Hero />
+      <About />
       <AboutSec />
       <QuoteSec />
       <BestSellingSec />

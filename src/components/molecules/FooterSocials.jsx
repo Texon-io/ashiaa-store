@@ -29,30 +29,6 @@ function FooterSocials() {
           alt="telegram"
           customClass="justify-center"
         />
-        {/* <a
-          href="https://www.facebook.com/profile.php?id=100064005554138"
-          className="w-10 flex justify-end"
-        >
-          <img src="/images/facebook.png" alt="facebook" />
-        </a> */}
-        {/* <a
-          href="https://www.instagram.com/ba2e3t_alkotob?fbclid=IwY2xjawOBVQ1leHRuA2FlbQIxMABicmlkETFCSkNQMzA2aXU1bTluUHlmc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHg6o_e5t2GsD4PO7lsfKdj6AcSmH9J5JU8OIqg8o1ScY9mjhzKH0NYYLGmtu_aem_OzEUXr4mm6UeuEnBF6Bikg&brid=iXOlYglvWuMF0LAWXBulDQ"
-          className="w-10 flex justify-center"
-        >
-          <img src="/images/instagram.png" alt="instagram" />
-        </a> */}
-        {/* <a
-          href="https://www.tiktok.com/@ba2e3t_alkotob?fbclid=IwY2xjawOBVA5leHRuA2FlbQIxMABicmlkETFCSkNQMzA2aXU1bTluUHlmc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHg9JBTkpkzx7xdHbA2IVi72A9Si4RaZ_F9AwQjFpsA_I1WshMgDd2MYOdjdw_aem_Oiq-NZm6k3MXfIsqaHKhyQ&brid=iXOlYglvWuMF0LAWXBulDQ"
-          className="w-10 flex justify-center"
-        >
-          <img src="/images/tiktok.png" alt="tiktok" />
-        </a> */}
-        {/* <a
-          href="https://t.me/+UMeRax_BbF1iNTFk?fbclid=IwY2xjawOBVOVleHRuA2FlbQIxMABicmlkETFCSkNQMzA2aXU1bTluUHlmc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHv02UKtFnrih7KiubvCpV7xCakabFe5tPjUXe_OfJRV6jI3z-FMSpf4amZV0_aem_RGWEKTLdhZQC6AJ6nR0LGQ&brid=iXOlYglvWuMF0LAWXBulDQ"
-          className="w-10 flex justify-center"
-        >
-          <img src="/images/telegram.png" alt="telegram" />
-        </a> */}
       </div>
     </div>
   );

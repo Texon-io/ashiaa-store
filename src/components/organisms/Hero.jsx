@@ -28,7 +28,7 @@ const Hero = () => {
       {/* Background Glow */}
       <motion.div
         style={{ y: ySmooth1 }}
-        className="absolute bottom-10 left-5 w-40 h-40 lg:w-64 lg:h-64 bg-accent-dark  rounded-full blur-[80px] lg:blur-[100px] opacity-60"
+        className="absolute bottom-20 left-10 w-40 h-40 lg:w-64 lg:h-64 bg-accent-dark  rounded-full blur-[80px] lg:blur-[100px] opacity-60"
       />
 
       <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center z-10">
@@ -48,7 +48,7 @@ const Hero = () => {
             مجموعة أشياء الحصرية ٢٠٢٦
           </motion.span>
 
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-[#3E2723] leading-[1.2] mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-dark-metallic leading-[1.2] mb-6">
             أشياء تُجمّل <br />
             <span className="text-[#8D6E63] font-light italic underline decoration-1 underline-offset-8">
               تفاصيل يومك
@@ -63,9 +63,9 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 lg:gap-5 w-full sm:w-auto">
             <Link to="/products">
               <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: "#5D4037" }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#3E2723] cursor-pointer text-white px-8 lg:px-10 py-4 rounded-full flex items-center justify-center gap-3 shadow-xl transition-colors"
+                whileHover={{ scale: 1.02, backgroundColor: "#5D4037" }}
+                whileTap={{ scale: 0.97 }}
+                className="cursor-pointer w-full bg-dark-metallic sm:w-fit text-white px-8 lg:px-10 py-4 rounded-xl flex items-center justify-center gap-3 shadow-xl transition-colors"
               >
                 <ShoppingBag size={18} />
                 <span className="font-semibold text-sm lg:text-base">
@@ -77,7 +77,7 @@ const Hero = () => {
             <a href="#categories">
               <motion.button
                 whileHover={{ x: 5 }}
-                className="group cursor-pointer text-main-text font-bold px-4 py-4 flex items-center justify-center gap-2 transition-all"
+                className="group cursor-pointer w-full sm:w-fit text-main-text font-bold px-4 py-4 flex items-center justify-center gap-2 transition-all"
               >
                 <span className="text-sm lg:text-base">أكتشف المزيد</span>
                 <ArrowRight
@@ -97,7 +97,7 @@ const Hero = () => {
             className="relative z-20 w-48 h-64 lg:w-72 lg:h-96 bg-card-bg rounded-2xl shadow-2xl overflow-hidden p-2 lg:p-3 border-2 border-accent-dark"
           >
             <img
-              src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&q=80"
+              src="https://images.unsplash.com/photo-1512879336734-d372f3f6402d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTMyfHxub3RlYm9va3xlbnwwfHwwfHx8MA%3D%3D"
               alt="Notebook"
               className="w-full h-full object-cover rounded-xl shadow-inner"
             />
@@ -111,7 +111,7 @@ const Hero = () => {
             className="absolute -top-5 left-[10%] lg:left-[15%] z-30 w-16 h-24 lg:w-24 lg:h-32 bg-card-bg  backdrop-blur-md p-2 rounded-xl lg:rounded-2xl shadow-lg border-2 border-accent-dark"
           >
             <img
-              src="https://images.unsplash.com/photo-1567855354833-ac2c4f967b0c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHN0YXRpb25lcnl8ZW58MHx8MHx8fDA%3D"
+              src="/images/hero-pens.jpg"
               alt="pen"
               className="w-full h-full object-cover rounded-lg"
             />
@@ -130,7 +130,7 @@ const Hero = () => {
             className="absolute bottom-[5%] right-[5%] lg:bottom-[10%] lg:right-[10%] z-30 w-20 h-20 lg:w-28 lg:h-28 bg-card-bg p-1.5 lg:p-2 rounded-full shadow-2xl border-2 border-accent-dark"
           >
             <img
-              src="https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3RhdGlvbmVyeXxlbnwwfHwwfHx8MA%3D%3D"
+              src="/images/hero-tools.jpg"
               alt="accessory"
               className="w-full h-full object-cover rounded-full"
             />

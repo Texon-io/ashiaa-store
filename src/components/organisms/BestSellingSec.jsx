@@ -2,50 +2,97 @@ import useProducts from "../../hooks/useProducts.js";
 import SecHeading from "../atoms/SecHeading.jsx";
 import BestSellingProduct from "../molecules/BestSellingProduct.jsx";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, A11y } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 function BestSellingSec() {
-  // variable to store bestseller products
-  let bestSeller;
+  const { data: bestSellers, error } = useProducts("", true, true);
 
-  // Fetching bestseller by the same API
-  const { data: products, isSuccess, error,isLoading } = useProducts();
-
-  // on success assigning first 3 bestsellers products in variable
-  if (isSuccess) {
-    bestSeller = products.filter((p) => p.BestSeller).slice(0, 4) || [];
-  }
-
-  // on error console this error
-  // you handle error and the rest of code
   if (error) console.error(error);
+
+  const products = bestSellers || [];
+
   return (
-    <section className="max-w-7xl mx-auto px-4 py-6">
+    <section className="px-4 md:px-16 mx-auto py-16 relative" dir="rtl">
       {/* Sec Title */}
       <SecHeading>الأكثر مبيعاً</SecHeading>
-
-      {/* Products Grid */}
-      <div
-        className="
-          pt-6
-          px-4
-      grid 
-      grid-cols-1 
-      sm:grid-cols-2 
-      lg:grid-cols-4 
-      gap-6
-    "
-      >
-        {bestSeller &&
-          bestSeller.map((product) => (
-            <BestSellingProduct
-              key={product.id}
-              id={product.id}
-              name={product.Name}
-              price={product.Price}
-              image={product.ImageURL}
-              description={product.Description}
-            />
-          ))}
+      <div className="flex justify-between items-center mb-4 px-4">
+        {/* Swiper Navigation */}
+        <div className="hidden md:flex gap-2">{/* Next Button */}</div>
       </div>
+
+      <div className=" p-2 w-full pt-12">
+        <Swiper
+          modules={[Navigation, Pagination, A11y]}
+          spaceBetween={6} // Space between each slide
+          slidesPerView={1} // Number of slides per view
+          navigation
+          pagination={{ clickable: true }}
+          breakpoints={{
+            // Small Screen & Mobile
+            0: {
+              slidesPerView: 1.2, // Number of slides per view
+            },
+            // Large Mobile & Tablet
+            500: {
+              slidesPerView: 2,
+            },
+            // Medium Screen
+            992: {
+              slidesPerView: 3,
+            },
+            // Large Screen
+            1200: {
+              slidesPerView: 4,
+            },
+          }}
+          className="best-seller-swiper !pb-14 cursor-grab " // For Pagination
+        >
+          {products.map((product) => (
+            <SwiperSlide key={product.id}>
+              <div className="py-2 px-8 ">
+                {" "}
+                <BestSellingProduct
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  image={product.image}
+                  description={product.description}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* Custom CSS */}
+      <style jsx global>{`
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: #f9f9f9 !important;
+          background: #5e3b37;
+          width: 38px !important;
+          height: 38px !important;
+          padding: 8px !important;
+          border-radius: 50%;
+          box-shadow: 0 0px 11px rgba(0, 0, 0, 0.4);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+          font-size: 18px !important;
+          font-weight: bold;
+        }
+        .swiper-pagination-bullet-active {
+          background: #8d6e63 !important;
+        }
+      `}</style>
     </section>
   );
 }

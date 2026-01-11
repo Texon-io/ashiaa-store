@@ -16,8 +16,10 @@
   --color-secondary-text-light: #f2dfc7;
   --color-card-bg: #f7eee1;
   --color-main-bg: #f9f9f9;
+  --color-main-bg-2: #f4f1ee;
   --color-accent-main-light: #dec8ad;
   --color-deep-black: #1a1a1a;
+  --color-dark-metallic: #3e2723;
   /* ====== */
 }
 
@@ -42,7 +44,6 @@ body {
   background-color: var(--color-accent-dark-2);
 }
 #about,
-.hero-sec,
 #categories {
   background-image: url("/images/background-1.png");
   background-size: cover;
@@ -55,8 +56,8 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 90%;
-  margin: 4rem auto;
+  /* width: 90%; */
+  /* margin: 4rem auto; */
 }
 #card {
   background-size: cover;

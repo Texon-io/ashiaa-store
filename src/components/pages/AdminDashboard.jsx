@@ -208,6 +208,7 @@ export default function AddProduct() {
       setAttempts(0);
       toast.success("Welcome, Admin!");
     } else {
+      setPassInput("");
       const newAttempts = attempts + 1;
       setAttempts(newAttempts);
 
@@ -292,17 +293,15 @@ export default function AddProduct() {
   if (!isAdmin) {
     return (
       <div
-        dir="rtl"
-        className="min-h-screen bg-slate-900 flex items-center justify-center p-6 font-sans"
+        dir="ltr"
+        className="min-h-screen bg-slate-900 flex items-center justify-center p-6 font-almarai"
       >
         <Toaster position="top-center" richColors />
         <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md border border-gray-100 animate-in fade-in zoom-in duration-300">
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              منطقة المسؤولين
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800">Admin Login</h2>
             <p className="text-gray-500 mt-2 text-sm">
-              أدخل كلمة المرور للمتابعة
+              Please enter the admin password to access the dashboard.
             </p>
           </div>
 
@@ -312,7 +311,7 @@ export default function AddProduct() {
               value={passInput}
               disabled={isLocked}
               onChange={(e) => setPassInput(e.target.value)}
-              placeholder={isLocked ? "حاول لاحقاً..." : "أدخل كلمة المرور"}
+              placeholder={isLocked ? "Try again later" : "Enter password"}
               className={`w-full px-4 py-3 rounded-xl border ${
                 isLocked ? "bg-gray-100" : "border-gray-200"
               } focus:ring-2 focus:ring-green-500 outline-none text-center`}
@@ -323,18 +322,18 @@ export default function AddProduct() {
               disabled={isLocked}
               className={`w-full py-3 rounded-xl font-bold transition-all ${
                 isLocked
-                  ? "bg-gray-400 cursor-not-allowed text-gray-200"
-                  : "bg-green-600 hover:bg-green-700 text-white"
+                  ? "bg-gray-400  text-gray-200 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700 text-white cursor-pointer"
               }`}
             >
               {isLocked
-                ? `إعادة المحاولة بعد ${formatTime(timeLeft)}`
-                : "دخول المسؤول"}
+                ? `Try again later in ${formatTime(timeLeft)}`
+                : "Login"}
             </button>
 
             {isLocked && (
               <p className="text-red-500 text-sm text-center font-medium animate-pulse">
-                ⚠️ تم رصد محاولات خاطئة. يرجى الانتظار.
+                ⚠️ You have been locked out due to multiple failed attempts.
               </p>
             )}
           </form>
@@ -346,17 +345,17 @@ export default function AddProduct() {
   return (
     <div
       dir="rtl"
-      className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center p-6 font-sans text-right relative"
+      className="min-h-screen bg-[#f8fafc] flex flex-col items-center justify-center p-6  text-right relative font-almarai"
     >
       <button
         onClick={handleLogout}
         className="absolute top-4 left-4 cursor-pointer text-sm bg-red-50 text-red-500 px-4 py-2 rounded-xl hover:bg-red-100 transition-colors border border-red-100 font-bold"
       >
-        خروج الآمن
+        تسجيل خروج
       </button>
 
       <div className="w-full max-w-2xl bg-white rounded-3xl mt-10 shadow-xl overflow-hidden border border-gray-100">
-        <div className="bg-gradient-to-r from-green-600 to-emerald-500 p-6 text-white text-center">
+        <div className="bg-linear-to-r from-green-600 to-emerald-500 p-6 text-white text-center">
           <h1 className="text-2xl font-bold">إضافة منتج جديد</h1>
         </div>
 

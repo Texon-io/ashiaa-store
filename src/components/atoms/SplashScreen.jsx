@@ -16,7 +16,7 @@ export default function SplashScreen() {
         className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white"
         initial={{ opacity: 1 }}
         animate={{ opacity: fadeOut ? 0 : 1 }}
-        transition={{ duration: 1, ease: "easeInOut" }} // fade-out تدريجي لمدة ثانية
+        transition={{ duration: 1, ease: "easeInOut" }}
       >
         <motion.h1
           className="text-3xl font-bold text-accent-dark"
@@ -29,7 +29,7 @@ export default function SplashScreen() {
 
         {/* subtle animated dots */}
         <motion.div
-          className="flex space-x-2 mt-4"
+          className="flex space-x-2 mt-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}

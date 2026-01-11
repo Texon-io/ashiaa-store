@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+
 import SecHeading from "../atoms/SecHeading";
 import CategoryCard from "../molecules/CategoryCard";
 
@@ -108,12 +109,12 @@ function CategoriesSec() {
                 imgPath={cat.img}
                 className="w-full h-full transform-gpu" // GPU acceleration
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-metallic/70 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-dark-metallic/70 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
 
                 <div className="absolute bottom-6 right-6 text-main-bg z-20">
                   <h3 className="text-3xl font-bold mb-1">{cat.title}</h3>
 
-                  <div className="w-0 group-hover:w-full h-[2px] bg-white transition-[width] duration-500 ease-in-out origin-right" />
+                  <div className="w-0 group-hover:w-full h-0.5 bg-white transition-[width] duration-500 ease-in-out origin-right" />
                 </div>
               </CategoryCard>
             </motion.div>

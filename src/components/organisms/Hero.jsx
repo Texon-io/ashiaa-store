@@ -43,7 +43,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-[#8D6E63] font-medium tracking-[0.1em] mb-4 block text-xs lg:text-sm uppercase"
+            className="text-[#8D6E63] font-medium tracking-widest mb-4 block text-xs lg:text-sm uppercase"
           >
             مجموعة أشياء الحصرية ٢٠٢٦
           </motion.span>

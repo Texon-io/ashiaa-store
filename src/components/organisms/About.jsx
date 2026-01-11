@@ -26,7 +26,7 @@ const About = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
-              className="absolute inset-0 z-10 rounded-2xl overflow-hidden shadow-2xl border-[12px] border-card-bg"
+              className="absolute inset-0 z-10 rounded-2xl overflow-hidden shadow-2xl border-12 border-card-bg"
             >
               <img
                 src="/images/about-img-1.jpg"

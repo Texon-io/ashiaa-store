@@ -50,7 +50,7 @@ function BestSellingSec() {
               slidesPerView: 4,
             },
           }}
-          className="best-seller-swiper !pb-14 cursor-grab " // For Pagination
+          className="best-seller-swiper pb-14 cursor-grab " // For Pagination
         >
           {products.map((product) => (
             <SwiperSlide key={product.id}>

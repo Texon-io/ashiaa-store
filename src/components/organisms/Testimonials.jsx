@@ -69,7 +69,7 @@ const InstagramReviews = () => {
                 className="relative cursor-pointer group"
               >
                 <div className="bg-white p-2 pb-8 shadow-lg rounded-sm border border-gray-100 transition-shadow group-hover:shadow-2xl">
-                  <div className="aspect-[9/16] overflow-hidden bg-gray-100">
+                  <div className="aspect-9/16 overflow-hidden bg-gray-100">
                     <img
                       src={rev.img}
                       alt="Customer Review"

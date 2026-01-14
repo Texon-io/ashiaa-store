@@ -6,7 +6,7 @@ import FooterSocials from "../molecules/FooterSocials";
 function Footer() {
   return (
     <footer className=" py-4">
-      <div className=" relative max-w-6xl mx-auto p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 sm:gap-32 md:gap-20 text-sm">
+      <div className=" relative max-w-6xl mx-auto p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-14 sm:gap-32 md:gap-20 text-sm z-0">
         <SecDivider pos="top-0" />
         <FooterLogo />
 

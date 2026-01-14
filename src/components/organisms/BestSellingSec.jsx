@@ -17,7 +17,7 @@ function BestSellingSec() {
   const products = bestSellers || [];
 
   return (
-    <section className="px-4 md:px-16 mx-auto py-16 relative" dir="rtl">
+    <section className="px-4 md:px-16 mx-auto py-16 relative z-0" dir="rtl">
       {/* Sec Title */}
       <SecHeading>الأكثر مبيعاً</SecHeading>
       <div className="flex justify-between items-center mb-4 px-4">

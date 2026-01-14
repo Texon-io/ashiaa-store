@@ -18,7 +18,7 @@ const Hero = () => {
   return (
     <section
       dir="rtl"
-      className="relative min-h-screen w-full bg-main-bg overflow-hidden flex items-center py-10 lg:py-0 text-right"
+      className="relative min-h-screen w-full bg-main-bg overflow-hidden flex items-center py-10 lg:py-0 text-right z-0"
     >
       {/* Background Glow */}
       <motion.div
@@ -43,7 +43,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-[#8D6E63] font-medium tracking-widest mb-4 block text-xs lg:text-sm uppercase"
+            className="text-[#8D6E63] font-medium tracking-widest mb-6 block text-xs lg:text-sm uppercase"
           >
             مجموعة أشياء الحصرية ٢٠٢٦
           </motion.span>
@@ -55,7 +55,7 @@ const Hero = () => {
             </span>
           </h1>
 
-          <p className="text-base lg:text-lg text-[#6D4C41]/80 max-w-md mb-8 lg:mb-10 leading-relaxed">
+          <p className="text-base lg:text-lg text-[#6D4C41]/80 max-w-md mb-8 lg:mb-10 leading-7">
             مجموعتنا المختارة من الأدوات المكتبية والمنظمات مصممة لتضيف لمسة من
             الأناقة والإنتاجية لمساحتك الخاصة.
           </p>
@@ -97,7 +97,7 @@ const Hero = () => {
             className="relative z-20 w-48 h-64 lg:w-72 lg:h-96 bg-card-bg rounded-2xl shadow-2xl overflow-hidden p-2 lg:p-3 border-2 border-accent-dark"
           >
             <img
-              src="https://images.unsplash.com/photo-1512879336734-d372f3f6402d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTMyfHxub3RlYm9va3xlbnwwfHwwfHx8MA%3D%3D"
+              src="/images/hero-notes.webp"
               alt="Notebook"
               className="w-full h-full object-cover rounded-xl shadow-inner"
             />
@@ -111,7 +111,7 @@ const Hero = () => {
             className="absolute -top-5 left-[10%] lg:left-[15%] z-30 w-16 h-24 lg:w-24 lg:h-32 bg-card-bg  backdrop-blur-md p-2 rounded-xl lg:rounded-2xl shadow-lg border-2 border-accent-dark"
           >
             <img
-              src="/images/hero-pens.jpg"
+              src="/images/hero-pens.webp"
               alt="pen"
               className="w-full h-full object-cover rounded-lg"
             />
@@ -130,7 +130,7 @@ const Hero = () => {
             className="absolute bottom-[5%] right-[5%] lg:bottom-[10%] lg:right-[10%] z-30 w-20 h-20 lg:w-28 lg:h-28 bg-card-bg p-1.5 lg:p-2 rounded-full shadow-2xl border-2 border-accent-dark"
           >
             <img
-              src="/images/hero-tools.jpg"
+              src="/images/hero-tools.webp"
               alt="accessory"
               className="w-full h-full object-cover rounded-full"
             />

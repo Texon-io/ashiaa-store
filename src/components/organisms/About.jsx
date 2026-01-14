@@ -14,7 +14,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen bg-accent-dark-2 flex items-center overflow-hidden"
+      className="relative min-h-screen bg-accent-dark-2 flex items-center overflow-hidden z-0"
       dir="rtl"
     >
       <div className="container mx-auto px-6 ">
@@ -29,7 +29,7 @@ const About = () => {
               className="absolute inset-0 z-10 rounded-2xl overflow-hidden shadow-2xl border-12 border-card-bg"
             >
               <img
-                src="/images/about-img-1.jpg"
+                src="/images/about-img-1.webp"
                 alt="Stationery texture"
                 className="w-full h-full object-cover"
               />
@@ -44,7 +44,7 @@ const About = () => {
               className="absolute -bottom-10 -right-10 z-20 w-48 h-64 rounded-xl overflow-hidden shadow-2xl border-8 border-card-bg hidden md:block"
             >
               <img
-                src="/images/about-img-2.jpg"
+                src="/images/about-img-2.webp"
                 alt="Detail"
                 className="w-full h-full object-cover"
               />
@@ -73,7 +73,7 @@ const About = () => {
               <motion.h3
                 custom={1}
                 variants={textVariant}
-                className="text-4xl lg:text-5xl font-bold  text-card-bg leading-tight"
+                className="text-4xl lg:text-5xl font-bold  text-card-bg leading-relaxed"
               >
                 نؤمن أن الأدوات البسيطة <br />
                 <span className="text-deep-black">تصنع فارقاً كبيراً</span>

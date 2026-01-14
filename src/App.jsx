@@ -59,8 +59,8 @@ function App() {
       {/* Only show the footer if we're not on the admin page */}
       {!isAdminPage && (
         <>
-          <Cart />
           <Footer />
+          <Cart />
         </>
       )}
     </>

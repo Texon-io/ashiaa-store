@@ -9,7 +9,7 @@ import Testimonials from "../organisms/Testimonials.jsx";
 
 function HomePage() {
   return (
-    <div>
+    <div className="">
       <Hero />
       <Categories />
       <About />

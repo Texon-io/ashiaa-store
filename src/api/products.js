@@ -7,20 +7,20 @@ export async function getData(category = "", bestSeller = false) {
   const GOOGLE_API_URL =
     "https://script.google.com/macros/s/AKfycbwyMMVSWDE42EA_d4OoDe9kbraLHadD-MrP6K8BEREpvp5VI5iqRL1HKtIpeRG9p5mmUQ/exec";
 
-  // استخدام URLSearchParams أسهل وأنظف لبناء الروابط
+  // Create a new URLSearchParams object
   const params = new URLSearchParams();
 
-  // إذا كان هناك قسم (وليس "الكل")، أضفه للرابط
+  // If a category is specified, add it to the parameters
   if (category && category !== "الكل") {
     params.append("category", category);
   }
 
-  // إذا كان المطلوب هو الأكثر مبيعاً فقط
+  // If bestSeller is true, add it to the parameters
   if (bestSeller) {
     params.append("bestSeller", "true");
   }
 
-  // دمج الرابط الأساسي مع الـ Parameters إذا وجدت
+  // Convert the parameters to a query string
   const queryString = params.toString();
   const url = queryString ? `${GOOGLE_API_URL}?${queryString}` : GOOGLE_API_URL;
 

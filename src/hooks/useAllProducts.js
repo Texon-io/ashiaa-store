@@ -35,16 +35,19 @@ export default function useAllProducts(enabled = true) {
     refetchOnMount: true,
   });
 
-  // Prefetch all categories data in the background to ensure smooth navigation
+  // Prefetch all categories data in the background
   useEffect(() => {
     if (!enabled) return;
 
     ALL_CATEGORIES.forEach((cat) => {
-      // Only prefetch if data is not already in cache or is stale
-      if (!queryClient.getQueryData(["products", cat])) {
+      // IMPORTANT: Unified queryKey to match useProducts hook structure
+      // This ensures that when a user switches to a category, the data is already in cache
+      const categoryKey = ["products", { category: cat, bestSeller: false }];
+
+      if (!queryClient.getQueryData(categoryKey)) {
         queryClient.prefetchQuery({
-          queryKey: ["products", cat],
-          queryFn: () => getData(cat),
+          queryKey: categoryKey,
+          queryFn: () => getData(cat, false),
           staleTime: 1000 * 60 * 1,
         });
       }
@@ -55,17 +58,21 @@ export default function useAllProducts(enabled = true) {
   const products = useMemo(() => {
     if (!enabled) return [];
 
-    // Priority 1: Current fetch result
+    // Priority 1: Current fetch result for "All"
     if (mainAllData) return mainAllData;
 
     // Priority 2: Existing cache for the "all" key
     const allCached = queryClient.getQueryData(["products", ""]);
     if (allCached) return allCached;
 
-    // Priority 3: Combine data from individual category caches
-    return ALL_CATEGORIES.flatMap(
-      (cat) => queryClient.getQueryData(["products", cat]) || []
-    );
+    // Priority 3: Combine data from individual category caches using the unified Object Key
+    return ALL_CATEGORIES.flatMap((cat) => {
+      const cachedData = queryClient.getQueryData([
+        "products",
+        { category: cat, bestSeller: false },
+      ]);
+      return cachedData || [];
+    });
   }, [enabled, queryClient, mainAllData]);
 
   const isLoading = enabled && products.length === 0;

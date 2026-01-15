@@ -71,6 +71,7 @@ const InstagramReviews = () => {
                 <div className="bg-white p-2 pb-8 shadow-lg rounded-sm border border-gray-100 transition-shadow group-hover:shadow-2xl">
                   <div className="aspect-9/16 overflow-hidden bg-gray-100">
                     <img
+                      loading="lazy"
                       src={rev.img}
                       alt="Customer Review"
                       className="w-full h-full object-cover"

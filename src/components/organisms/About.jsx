@@ -29,6 +29,7 @@ const About = () => {
               className="absolute inset-0 z-10 rounded-2xl overflow-hidden shadow-2xl border-12 border-card-bg"
             >
               <img
+                loading="lazy"
                 src="/images/about-img-1.webp"
                 alt="Stationery texture"
                 className="w-full h-full object-cover"
@@ -44,6 +45,7 @@ const About = () => {
               className="absolute -bottom-10 -right-10 z-20 w-48 h-64 rounded-xl overflow-hidden shadow-2xl border-8 border-card-bg hidden md:block"
             >
               <img
+                loading="lazy"
                 src="/images/about-img-2.webp"
                 alt="Detail"
                 className="w-full h-full object-cover"

@@ -1,35 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, useLocation } from "react-router"; // أضفنا useLocation
+import Navbar from "./components/organisms/Navbar.jsx";
+import Footer from "./components/organisms/Footer.jsx";
+import Cart from "./components/pages/Cart.jsx";
+import { Toaster } from "sonner";
+
+import HomePage from "./components/pages/HomePage.jsx";
+import Contact from "./components/pages/Contact.jsx";
+import Products from "./components/pages/Products.jsx";
+import ScrollToTop from "./utils/ScrollToTop.jsx";
+import SplashScreen from "./components/atoms/SplashScreen.jsx";
+import { useEffect, useState } from "react";
+import AdminDashboard from "./components/pages/AdminDashboard.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showSplash, setShowSplash] = useState(true);
+  const location = useLocation(); // To get the current route
+
+  // Determine if we're on the admin page
+  const isAdminPage = location.pathname === "/admin-dashboard_ashiaa2026";
+
+  useEffect(() => {
+    document.title = "متجر أشياء";
+    const timer = setTimeout(() => setShowSplash(false), 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {showSplash && <SplashScreen />}
+
+      {/* Only show the navbar if we're not on the admin page */}
+      {!isAdminPage && <Navbar />}
+
+      <ScrollToTop />
+
+      <main>
+        <Toaster
+          richColors
+          position="top-center"
+          dir="rtl"
+          toastOptions={{
+            style: {
+              fontFamily: "Almarai, sans-serif",
+            },
+          }}
+        />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/admin-dashboard_ashiaa2026"
+            element={<AdminDashboard />}
+          />
+        </Routes>
+      </main>
+
+      {/* Only show the footer if we're not on the admin page */}
+      {!isAdminPage && (
+        <>
+          <Footer />
+          <Cart />
+        </>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

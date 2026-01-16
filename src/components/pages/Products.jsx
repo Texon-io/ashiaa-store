@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react"; // أضفنا useMemo
-import { useSearchParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 

@@ -14,7 +14,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen bg-accent-dark-2 flex items-center overflow-hidden z-0"
+      className="relative min-h-screen bg-accent-dark-2 flex items-center overflow-hidden z-0 py-20"
       dir="rtl"
     >
       <div className="container mx-auto px-6 ">

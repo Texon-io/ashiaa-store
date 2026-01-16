@@ -65,8 +65,8 @@ const categories = [
     icon: Briefcase,
   },
   {
-    label: "بوكسات",
-    value: "بوكسات",
+    label: "باكيدچات أو بوكسات",
+    value: "باكيدچات أو بوكسات",
     colors: {
       txt: "text-red-600",
       bg: "bg-red-100",
@@ -263,30 +263,40 @@ export default function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return;
+
+    // 1. استخدم حالة الـ Mutation لمنع الإرسال المتكرر
+    if (addProductMutation.isPending) return;
 
     const form = e.target;
+    // 2. استخدام FormData لضمان سحب القيم بدقة
+    const formData = new FormData(form);
+
     const formDataValues = {
-      name: form.name.value,
-      price: form.price.value,
-      stock: form.stock.value,
-      category: category,
-      description: form.description.value,
-      bestSeller: bestSeller,
+      name: formData.get("name"),
+      price: formData.get("price"),
+      stock: formData.get("stock"),
+      category: category, // مستمد من الـ State الخاصة بك
+      description: formData.get("description"),
+      bestSeller: bestSeller, // مستمد من الـ State الخاصة بك
     };
 
-    // 3. Use mutateAsync instead of calling uploadProductLogic directly
+    // 3. التحقق من وجود الصورة والقسم قبل البدء
+    if (!selectedFile) return toast.error("يرجى اختيار صورة للمنتج");
+    if (!category) return toast.error("يرجى اختيار قسم للمنتج");
+
+    // 4. تنفيذ الـ Mutation مع Toast
     toast.promise(addProductMutation.mutateAsync(formDataValues), {
-      loading: "Processing product data...",
+      loading: "جاري رفع البيانات والصورة...",
       success: () => {
+        // إعادة تعيين الفورم والحالات بعد النجاح
         setImagePreview(null);
         setSelectedFile(null);
         setBestSeller(false);
         setCategory("");
         form.reset();
-        return "Product added successfully! 🎉";
+        return "تمت إضافة المنتج بنجاح! 🎉";
       },
-      error: (err) => `${err.message}`,
+      error: (err) => `فشل الإرسال: ${err.message}`,
     });
   };
 
@@ -478,16 +488,17 @@ export default function AddProduct() {
               )}
             </div>
           </div>
-
           <button
-            disabled={loading}
-            className={`w-full py-4 rounded-2xl cursor-pointer font-bold text-lg transition-all transform active:scale-[0.98] shadow-lg ${
-              loading
+            disabled={addProductMutation.isPending}
+            className={`w-full py-4 rounded-2xl font-bold text-lg transition-all transform active:scale-[0.98] shadow-lg ${
+              addProductMutation.isPending
                 ? "bg-gray-400 cursor-not-allowed text-gray-100"
-                : "bg-green-600 hover:bg-green-700 text-white shadow-green-100"
+                : "bg-green-600 hover:bg-green-700 cursor-pointer text-white shadow-green-100"
             }`}
           >
-            {loading ? "جاري المعالجة..." : "إضافة المنتج الآن"}
+            {addProductMutation.isPending
+              ? "جاري المعالجة..."
+              : "إضافة المنتج الآن"}
           </button>
         </form>
       </div>

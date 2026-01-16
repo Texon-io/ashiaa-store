@@ -34,6 +34,7 @@ body {
   font-family: var(--font-almarai);
   color: var(--color-main-text);
   direction: rtl;
+  overflow-x: hidden;
 }
 
 .main-hover {

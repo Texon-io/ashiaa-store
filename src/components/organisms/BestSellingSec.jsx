@@ -20,12 +20,12 @@ function BestSellingSec() {
     <section className="px-4 md:px-16 mx-auto py-16 relative z-0" dir="rtl">
       {/* Sec Title */}
       <SecHeading>الأكثر مبيعاً</SecHeading>
-      <div className="flex justify-between items-center mb-4 px-4">
+      <div className="flex justify-between items-center mb-4 px-4 ">
         {/* Swiper Navigation */}
         <div className="hidden md:flex gap-2">{/* Next Button */}</div>
       </div>
 
-      <div className=" p-2 w-full pt-12">
+      <div className=" p-2 w-full  ">
         <Swiper
           modules={[Navigation, Pagination, A11y]}
           spaceBetween={6} // Space between each slide
@@ -50,11 +50,11 @@ function BestSellingSec() {
               slidesPerView: 4,
             },
           }}
-          className="best-seller-swiper pb-14 cursor-grab " // For Pagination
+          className="best-seller-swiper cursor-grab " // For Pagination
         >
           {products.map((product) => (
             <SwiperSlide key={product.id}>
-              <div className="py-2 px-8 ">
+              <div className="py-12 px-4">
                 {" "}
                 <BestSellingProduct
                   id={product.id}
@@ -88,6 +88,10 @@ function BestSellingSec() {
         .swiper-button-prev:after {
           font-size: 18px !important;
           font-weight: bold;
+        }
+        .swiper-horizontal > .swiper-pagination-bullets,
+        .swiper-pagination-horizontal.swiper-pagination-bullets {
+          bottom: 0 !important;
         }
         .swiper-pagination-bullet-active {
           background: #8d6e63 !important;

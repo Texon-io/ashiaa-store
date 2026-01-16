@@ -31,13 +31,13 @@ const Hero = () => {
         className="absolute bottom-20 left-10 w-40 h-40 lg:w-64 lg:h-64 bg-accent-dark  rounded-full blur-[80px] lg:blur-[100px] opacity-60"
       />
 
-      <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center z-10">
+      <div className="container mx-auto px-6 mt-16 lg:mt-0 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="order-1 flex flex-col items-center lg:items-start text-center lg:text-right"
+          className="order-1 flex flex-col items-center lg:items-start text-center lg:text-right "
         >
           <motion.span
             initial={{ opacity: 0 }}

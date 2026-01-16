@@ -36,6 +36,26 @@ body {
   direction: rtl;
   overflow-x: hidden;
 }
+::scroll-marker {
+  display: none;
+}
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: var(--color-accent-main-light);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent-dark);
+  border-radius: 10px;
+  width: 5px;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-dark-metallic);
+}
 
 .main-hover {
   @apply opacity-90 hover:opacity-100 transition-opacity duration-300;

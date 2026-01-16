@@ -97,7 +97,7 @@ const Hero = () => {
             className="relative z-20 w-48 h-64 lg:w-72 lg:h-96 bg-card-bg rounded-2xl shadow-2xl overflow-hidden p-2 lg:p-3 border-2 border-accent-dark"
           >
             <img
-              src="/images/hero-notes.webp"
+              src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588052/hero-notes_fhco5t.webp"
               alt="Notebook"
               className="w-full h-full object-cover rounded-xl shadow-inner"
             />
@@ -111,7 +111,7 @@ const Hero = () => {
             className="absolute -top-5 left-[10%] lg:left-[15%] z-30 w-16 h-24 lg:w-24 lg:h-32 bg-card-bg  backdrop-blur-md p-2 rounded-xl lg:rounded-2xl shadow-lg border-2 border-accent-dark"
           >
             <img
-              src="/images/hero-pens.webp"
+              src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588050/hero-pens_ys7m3p.webp"
               alt="pen"
               className="w-full h-full object-cover rounded-lg"
             />
@@ -130,7 +130,7 @@ const Hero = () => {
             className="absolute bottom-[5%] right-[5%] lg:bottom-[10%] lg:right-[10%] z-30 w-20 h-20 lg:w-28 lg:h-28 bg-card-bg p-1.5 lg:p-2 rounded-full shadow-2xl border-2 border-accent-dark"
           >
             <img
-              src="/images/hero-tools.webp"
+              src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588049/hero-tools_nhzyad.webp"
               alt="accessory"
               className="w-full h-full object-cover rounded-full"
             />

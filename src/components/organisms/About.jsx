@@ -30,7 +30,7 @@ const About = () => {
             >
               <img
                 loading="lazy"
-                src="/images/about-img-1.webp"
+                src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588050/about-img-1_uf6zkv.webp"
                 alt="Stationery texture"
                 className="w-full h-full object-cover"
               />
@@ -46,7 +46,7 @@ const About = () => {
             >
               <img
                 loading="lazy"
-                src="/images/about-img-2.webp"
+                src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588052/about-img-2_pwm1wf.webp"
                 alt="Detail"
                 className="w-full h-full object-cover"
               />

@@ -1,5 +1,4 @@
-import { NavLink } from "react-router";
-
+import { NavLink } from "react-router-dom";
 // Nav items for dynamic loading
 const links = [
   { path: "/", label: "الرئيسية" },

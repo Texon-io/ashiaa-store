@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ShoppingBag, ArrowRight } from "lucide-react";
 import Lottie from "react-lottie-player";
 import mouseAnim from "../../assets/scroll_down.json";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { scrollY } = useScroll();

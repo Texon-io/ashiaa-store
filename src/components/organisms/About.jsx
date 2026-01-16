@@ -29,7 +29,6 @@ const About = () => {
               className="absolute inset-0 z-10 rounded-2xl overflow-hidden shadow-2xl border-12 border-card-bg"
             >
               <img
-                loading="lazy"
                 src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588050/about-img-1_uf6zkv.webp"
                 alt="Stationery texture"
                 className="w-full h-full object-cover"
@@ -45,7 +44,6 @@ const About = () => {
               className="absolute -bottom-10 -right-10 z-20 w-48 h-64 rounded-xl overflow-hidden shadow-2xl border-8 border-card-bg hidden md:block"
             >
               <img
-                loading="lazy"
                 src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588052/about-img-2_pwm1wf.webp"
                 alt="Detail"
                 className="w-full h-full object-cover"

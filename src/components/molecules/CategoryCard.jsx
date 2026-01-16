@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 function CategoryCard({ imgPath, to, children }) {
   return (
     <div
-      loading="lazy"
       style={{ backgroundImage: `url(${imgPath})` }}
       id="card"
       className={`bg-accent-dark h-48 sm:h-56 lg:h-64 rounded-xl overflow-hidden shadow-md `}

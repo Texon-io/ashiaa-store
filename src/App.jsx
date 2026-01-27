@@ -17,6 +17,7 @@ import NotFound from "./components/pages/NotFound.jsx";
 import Cart from "./components/pages/Cart.jsx";
 
 /**
+ * Main App Component:
  * AppContent Component:
  * This contains the main logic and layout.
  * It is separated to allow useLocation() to work correctly within the Router context.

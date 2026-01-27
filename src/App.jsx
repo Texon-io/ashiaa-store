@@ -12,7 +12,7 @@ import ScrollToTop from "./utils/ScrollToTop.jsx";
 import HomePage from "./components/pages/HomePage.jsx";
 import Contact from "./components/pages/Contact.jsx";
 import Products from "./components/pages/Products.jsx";
-import AdminDashboard from "./components/pages/AdminDashboard.jsx";
+import AdminDashboard from "./components/pages/AdminDashboard/AdminDashboard.jsx";
 import NotFound from "./components/pages/NotFound.jsx";
 import Cart from "./components/pages/Cart.jsx";
 

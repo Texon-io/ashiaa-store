@@ -8,7 +8,7 @@ function Card({ data, showModal, setData }) {
   const tempImg = placeHolder;
 
   const {
-    image,
+    main_image,
     name = "اسم المنتج",
     description = "منتج مكتبي رفيع من بائعة الكتب",
     category = "All",
@@ -28,7 +28,7 @@ function Card({ data, showModal, setData }) {
       >
         <img
           className="w-full h-[305px] object-cover transition-transform duration-500 hover:scale-105"
-          src={image || tempImg}
+          src={main_image || tempImg}
           alt={`${category}: ${name}`}
         />
       </div>
@@ -37,7 +37,7 @@ function Card({ data, showModal, setData }) {
       <ProductCardDetails
         id={id}
         name={name}
-        image={image}
+        image={main_image}
         description={description}
         category={category}
         price={price}

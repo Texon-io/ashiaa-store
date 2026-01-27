@@ -5,7 +5,7 @@ import { placeHolder } from "../../utils/constants.js";
 import { useCart } from "../../hooks/useCart.jsx";
 
 function Product({ showModal, data }) {
-  const { image, name, description, price, stock, id } = data;
+  const { main_image, name, description, price, stock, id } = data;
   const { addToCart } = useCart();
   const tempImg = placeHolder;
 
@@ -65,7 +65,7 @@ function Product({ showModal, data }) {
         <div className="md:w-1/2 w-full h-1/2 md:h-full rounded-b-2xl md:rounded-l-2xl p-5 md:p-8 bg-accent-main/50 flex justify-center items-center">
           <div className="w-full h-full md:w-5/6 md:h-5/6 flex justify-center items-center">
             <img
-              src={image || tempImg}
+              src={main_image || tempImg}
               alt={name}
               className="w-full h-full rounded-xl shadow-lg object-cover"
             />

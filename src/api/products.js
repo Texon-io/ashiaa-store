@@ -1,32 +1,23 @@
+import { supabase } from "../lib/supabaseClient";
+
 /*
  * Function for fetching data from Google Apps Script
  * Supports optional category and bestSeller filtering
  */
 export async function getData(category = "", bestSeller = false) {
-  // Google Apps Script URL
-  const GOOGLE_API_URL =
-    "https://script.google.com/macros/s/AKfycbwyMMVSWDE42EA_d4OoDe9kbraLHadD-MrP6K8BEREpvp5VI5iqRL1HKtIpeRG9p5mmUQ/exec";
+  let query = supabase.from("products").select("*");
 
-  // Create a new URLSearchParams object
-  const params = new URLSearchParams();
-
-  // If a category is specified, add it to the parameters
-  if (category && category !== "الكل") {
-    params.append("category", category);
+  if (category) {
+    query = query.eq("category", category);
   }
 
-  // If bestSeller is true, add it to the parameters
   if (bestSeller) {
-    params.append("bestSeller", "true");
+    query = query.eq("best_seller", true);
   }
 
-  // Convert the parameters to a query string
-  const queryString = params.toString();
-  const url = queryString ? `${GOOGLE_API_URL}?${queryString}` : GOOGLE_API_URL;
+  let { data: products, error } = await query;
 
-  const res = await fetch(url);
+  if (error) throw error;
 
-  if (!res.ok) throw new Error("Failed to fetch data from Google Sheets");
-
-  return res.json();
+  return products;
 }

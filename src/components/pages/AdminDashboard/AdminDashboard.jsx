@@ -3,36 +3,53 @@ import AddProductDialog from "./AddProductDialog";
 import AdminSidebar from "./AdminSidebar";
 import DashboardTab from "./DashboardTab";
 import ProductsTab from "./ProductsTab";
-import { useEffect } from "react";
-import { supabase } from "../../../lib/supabaseClient";
-import Checking from "./Checking";
 import { toast } from "sonner";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard"); // dashboard | products | promos
   const [addProductDialogOpen, setAddProductDialogOpen] = useState(false);
 
-  const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const checkUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      toast.success("تم تسجيل الدخول بنجاح");
+    } else {
+      toast.error("كلمة المرور غير صحيحة");
+    }
+  };
 
-      if (user && user.user_metadata?.role === "admin") {
-        setIsAdmin(true);
-      } else {
-        toast.warning("Not authorized to access this page");
-        window.location.href = "/";
-      }
-      setLoading(false);
-    };
-    checkUser();
-  }, []);
-  if (loading) return <Checking />;
-  if (!isAdmin) return null;
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+        <form
+          onSubmit={handleLogin}
+          className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md flex flex-col gap-4"
+        >
+          <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
+            تسجيل دخول الأدمن
+          </h1>
+          <input
+            type="password"
+            placeholder="أدخل كلمة المرور"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+            autoFocus
+          />
+          <button
+            type="submit"
+            className="w-full bg-black text-white p-3 rounded-lg hover:bg-gray-800 transition-colors font-bold"
+          >
+            دخول
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen gap-4 bg-gray-100 p-4">

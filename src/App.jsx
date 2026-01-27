@@ -69,10 +69,7 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
 
           {/* Secured Admin Route */}
-          <Route
-            path="/admin-dashboard_ashiaa2026"
-            element={<AdminDashboard />}
-          />
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
 
           {/* Fallback: 404 Premium Page */}
           <Route path="*" element={<NotFound />} />

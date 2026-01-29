@@ -63,7 +63,7 @@ export default function AdminDashboard() {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 p-4 lg:p-8 w-full rounded-xl shadow-lg border mx-auto bg-gray-200 mt-4 lg:mt-0">
+      <main className="flex-1 p-4 lg:p-8 w-full rounded-xl shadow-lg border mx-auto bg-main-bg-2 mt-4 lg:mt-0">
         {activeTab === "dashboard" && (
           <DashboardTab
             setAddProductDialogOpen={setAddProductDialogOpen}

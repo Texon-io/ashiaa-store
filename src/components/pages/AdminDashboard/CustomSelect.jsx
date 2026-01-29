@@ -30,7 +30,7 @@ export default function CustomSelect({
         <SelectTrigger
           id={id}
           className={cn(
-            "w-full rounded-lg border-gray-200 focus:ring-[#7C71DF] focus:border-[#7C71DF] transition-all cursor-pointer shadow-sm bg-white",
+            "w-full rounded-lg border-gray-200 focus:ring-accent-dark focus:border-accent-dark transition-all cursor-pointer shadow-sm bg-white",
             className,
           )}
         >
@@ -43,7 +43,7 @@ export default function CustomSelect({
               <SelectItem
                 key={item.id ? item.id : item}
                 value={item.id ? item.id : item}
-                className="cursor-pointer transition-colors focus:bg-[#7C71DF] focus:text-white data-[state=checked]:bg-[#7C71DF]/10 data-[state=checked]:text-[#7C71DF]"
+                className="cursor-pointer transition-colors focus:bg-accent-dark focus:text-white data-[state=checked]:bg-accent-dark/10 data-[state=checked]:text-accent-dark"
               >
                 {item.label ? item.label : item}
               </SelectItem>

@@ -33,14 +33,14 @@ export default function ConfirmDeleteDialog({
 
         <AlertDialogFooter className=" gap-2">
           <AlertDialogCancel className="rounded-lg cursor-pointer">
-            Cancel
+            إلغاء
           </AlertDialogCancel>
 
           <AlertDialogAction
             onClick={onConfirm}
             className="rounded-lg bg-red-500 hover:bg-red-600 text-white"
           >
-            Remove
+            حذف
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

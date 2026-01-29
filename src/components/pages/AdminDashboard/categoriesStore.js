@@ -1,14 +1,15 @@
 import { create } from "zustand";
 
 export const categoriesStore = create((set) => ({
-  category: "All",
+  category: "الكل",
   categories: [
-    "All",
-    "Accessories",
-    "Bedroom",
-    "Chairs",
-    "Kitchen",
-    "Sitting Room",
+    "الكل",
+    "دفاتر",
+    "أقلام",
+    "منظامت مكتب",
+    "مجات",
+    "شنط",
+    "باكيدچات أو بوكسات",
   ],
 
   setCategory: (cat) => set({ category: cat }),

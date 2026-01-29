@@ -8,18 +8,18 @@ import {
 import { ButtonShadcn } from "@/components/ui/button-shadcn";
 import { Input as ShadInput } from "@/components/ui/input-shadcn";
 import { Label } from "@/components/ui/label";
-import { ImagePlus, X } from "lucide-react";
+import { ImagePlus, X, Images } from "lucide-react";
 import CustomSelect from "./CustomSelect";
 import { useAllProducts } from "./useAllProducts";
-import { toast } from "sonner";
 
 const categories = [
-  { id: "All", label: "All" },
-  { id: "Accessories", label: "Accessories" },
-  { id: "Bedroom", label: "Bedroom" },
-  { id: "Chairs", label: "Chairs" },
-  { id: "Kitchen", label: "Kitchen" },
-  { id: "Sitting Room", label: "Sitting Room" },
+  { id: "باكيدچات أو بوكسات", label: "باكيدچات أو بوكسات" },
+  { id: "منظمات مكتب", label: "منظمات مكتب" },
+  { id: "دفاتر", label: "دفاتر" },
+  { id: "أقلام", label: "أقلام" },
+  { id: "مجات", label: "مجات" },
+  { id: "شنط", label: "شنط" },
+  { id: "أخرى", label: "أخرى" },
 ];
 
 export default function AddProductDialog({
@@ -27,176 +27,249 @@ export default function AddProductDialog({
   setOpen,
   productToEdit = null,
 }) {
-  const [image, setImage] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const fileInputRef = useRef(null);
-  const { addProduct, editProduct } = useAllProducts();
+  const [mainImage, setMainImage] = useState(null);
+  const [additionalImages, setAdditionalImages] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("دفاتر");
+  const [isBestSeller, setIsBestSeller] = useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const mainFileRef = useRef(null);
+  const additionalFilesRef = useRef(null);
+  const { addProduct, editProduct, isAdding, isEditing } = useAllProducts();
+
   useEffect(() => {
     if (productToEdit) {
       setSelectedCategory(productToEdit.category);
-      setImage(productToEdit.image_url || null);
+      setMainImage(productToEdit.main_image || null);
+      setAdditionalImages(productToEdit.additional_images || []);
+      setIsBestSeller(productToEdit.best_seller);
     } else {
-      setSelectedCategory("All");
-      setImage(null);
+      setSelectedCategory("دفاتر");
+      setMainImage(null);
+      setAdditionalImages([]);
     }
   }, [productToEdit, open]);
 
-  const handleImageChange = (e) => {
+  // Handle main image change
+  const handleMainImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-    }
+    if (file) setMainImage(file);
   };
 
-  const removeImage = () => {
-    setImage(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+  // Handle additional images change
+  const handleAdditionalImagesChange = (e) => {
+    const files = Array.from(e.target.files);
+    setAdditionalImages((prev) => [...prev, ...files]);
+  };
+
+  const removeMainImage = () => {
+    setMainImage(null);
+    if (mainFileRef.current) mainFileRef.current.value = "";
+  };
+
+  const removeAdditionalImage = (index) => {
+    setAdditionalImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const productData = {
-      title: e.target.title.value,
+      name: e.target.name.value,
       description: e.target.desc.value,
       price: e.target.price.value,
       stock: e.target.stock.value,
-      discount: 0,
       category: selectedCategory,
-      image_url: image,
+      main_image: mainImage,
+      additional_images: additionalImages,
+      best_seller: isBestSeller,
     };
 
-    // Check if the product is being edited
     if (productToEdit) {
       editProduct({ id: productToEdit.id, updatedData: productData });
-      toast.success("Product updated successfully!");
     } else {
       addProduct(productData);
-      toast.success("Product added successfully!");
     }
 
     setOpen(false);
-    setImage(null);
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl">
+      <DialogContent className="max-w-4xl max-h-[95vh] overflow-y-auto rounded-xl">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">
-            {productToEdit ? "Edit Product" : "Add New Product"}
+            {productToEdit ? "تعديل المنتج" : "إضافة منتج جديد"}
           </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6 pt-4">
+          {/* Product Name */}
           <div className="space-y-2 text-left">
-            <Label htmlFor="title">Product Title</Label>
+            <Label htmlFor="name">أسم المنتج</Label>
             <ShadInput
-              id="title"
-              name="title"
-              defaultValue={productToEdit?.title || ""} // Set the default value
-              placeholder="e.g. Modern Leather Sofa"
-              className="focus:ring-[#7C71DF] focus:border-[#7C71DF]"
+              id="name"
+              name="name"
+              defaultValue={productToEdit?.name || ""}
+              placeholder="أدخل أسم المنتج"
               required
             />
           </div>
 
+          {/* Description */}
           <div className="space-y-2 text-left">
-            <Label htmlFor="desc">Description</Label>
+            <Label htmlFor="desc">وصف المنتج</Label>
             <textarea
               id="desc"
               name="desc"
               defaultValue={productToEdit?.description || ""}
-              placeholder="Tell customers more about the product..."
-              className="flex min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 resize-none focus:ring-[#7C71DF] focus:border-[#7C71DF]"
+              className="flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:ring-2 focus:ring-accent-dark outline-none"
             />
           </div>
 
+          {/* Category, Price, Stock */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
             <div className="space-y-2">
-              <Label htmlFor="add-product-category">Category</Label>
+              <Label>الفئة</Label>
               <CustomSelect
-                id={`add-product-category`}
                 value={selectedCategory}
                 onValueChange={setSelectedCategory}
                 options={categories}
-                placeholder="Filter by Category"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="price">Price ($)</Label>
+              <Label htmlFor="price">السعر (ج.م)</Label>
               <ShadInput
+                className=""
                 id="price"
                 name="price"
-                defaultValue={productToEdit?.price || ""}
-                className="py-4.5 focus:ring-[#7C71DF] focus:border-[#7C71DF]"
                 type="number"
-                placeholder="0.00"
+                defaultValue={productToEdit?.price || ""}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="stock">Stock Quantity</Label>
+              <Label htmlFor="stock">الكمية</Label>
               <ShadInput
+                className=""
                 id="stock"
                 name="stock"
-                defaultValue={productToEdit?.stock || ""}
-                className="py-4.5 focus:ring-[#7C71DF] focus:border-[#7C71DF]"
                 type="number"
-                placeholder="10"
+                defaultValue={productToEdit?.stock || ""}
                 required
               />
             </div>
           </div>
 
-          <div className="space-y-3 text-left">
-            <Label>Product Image</Label>
-            <div className="flex gap-4">
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                ref={fileInputRef}
-                onChange={handleImageChange}
-              />
+          {/* Best Seller Checkbox */}
+          <div className="flex items-center gap-2">
+            <input
+              className="w-4 h-4"
+              type="checkbox"
+              id="best-seller"
+              name="best-seller"
+              checked={isBestSeller}
+              onChange={(e) => setIsBestSeller(e.target.checked)}
+            />
+            <label
+              htmlFor="best-seller"
+              className="text-sm font-medium text-gray-700"
+            >
+              المنتج الرئيسي (الاكثر مبيعا)
+            </label>
+          </div>
 
-              {image ? (
-                <div className="relative group aspect-square w-32 rounded-lg overflow-hidden border shadow-sm">
-                  <img
-                    // Display the uploaded image
-                    src={
-                      typeof image === "string"
-                        ? image
-                        : URL.createObjectURL(image)
-                    }
-                    alt="preview"
-                    className="w-full h-full object-cover"
-                  />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Main Image Section */}
+            <div className="space-y-3 text-left">
+              <Label>الصورة الرئيسية</Label>
+              <div className="flex flex-wrap gap-2">
+                <input
+                  type="file"
+                  hidden
+                  ref={mainFileRef}
+                  onChange={handleMainImageChange}
+                  accept="image/*"
+                />
+                {mainImage ? (
+                  <div className="relative w-32 h-32 rounded-lg overflow-hidden border">
+                    <img
+                      src={
+                        typeof mainImage === "string"
+                          ? mainImage
+                          : URL.createObjectURL(mainImage)
+                      }
+                      alt="Main"
+                      className="w-full h-full object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={removeMainImage}
+                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+                    >
+                      <X size={12} />
+                    </button>
+                  </div>
+                ) : (
                   <button
                     type="button"
-                    onClick={removeImage}
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-80 hover:opacity-100 transition shadow-md"
+                    onClick={() => mainFileRef.current.click()}
+                    className="w-32 h-32 border-2 border-dashed rounded-lg flex flex-col items-center justify-center text-gray-400 hover:border-accent-dark hover:text-accent-dark"
                   >
-                    <X size={12} />
+                    <ImagePlus size={24} />
+                    <span className="text-[10px] mt-1">اضافة صورة</span>
                   </button>
-                </div>
-              ) : (
+                )}
+              </div>
+            </div>
+
+            {/* Additional Images Section */}
+            <div className="space-y-3 text-left">
+              <Label>صور إضافية للمنتج</Label>
+              <div className="flex flex-wrap gap-2">
+                <input
+                  type="file"
+                  hidden
+                  multiple
+                  ref={additionalFilesRef}
+                  onChange={handleAdditionalImagesChange}
+                  accept="image/*"
+                />
+
+                {additionalImages.map((img, index) => (
+                  <div
+                    key={index}
+                    className="relative w-20 h-20 rounded-md overflow-hidden border"
+                  >
+                    <img
+                      src={
+                        typeof img === "string" ? img : URL.createObjectURL(img)
+                      }
+                      alt="Gallery"
+                      className="w-full h-full object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeAdditionalImage(index)}
+                      className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-0.5"
+                    >
+                      <X size={10} />
+                    </button>
+                  </div>
+                ))}
+
                 <button
                   type="button"
-                  onClick={() => fileInputRef.current.click()}
-                  className="aspect-square w-32 cursor-pointer flex flex-col items-center justify-center border-2 border-dashed rounded-lg text-gray-400 hover:text-brand-main hover:border-brand-main transition bg-gray-50/50 hover:bg-gray-50"
+                  onClick={() => additionalFilesRef.current.click()}
+                  className="w-20 h-20 border-2 border-dashed rounded-md flex flex-col items-center justify-center text-gray-400 hover:border-accent-dark"
                 >
-                  <ImagePlus size={24} />
-                  <span className="text-[10px] mt-1 font-medium">
-                    Upload Image
-                  </span>
+                  <Images size={20} />
+                  <span className="text-[8px] mt-1">اضافة صور</span>
                 </button>
-              )}
+              </div>
             </div>
           </div>
 
+          {/* Action Buttons */}
           <div className="flex gap-3 pt-4 border-t">
             <ButtonShadcn
               variant="outline"
@@ -204,13 +277,18 @@ export default function AddProductDialog({
               type="button"
               onClick={() => setOpen(false)}
             >
-              Cancel
+              إلغاء
             </ButtonShadcn>
             <ButtonShadcn
               type="submit"
-              className="flex-1 bg-brand-main text-white hover:bg-brand-main/90 transition-colors"
+              disabled={isAdding || isEditing}
+              className="flex-1 bg-accent-dark text-white"
             >
-              {productToEdit ? "Update Product" : "Save Product"}
+              {isAdding || isEditing
+                ? "جاري المعالجة..."
+                : productToEdit
+                  ? "تحديث المنتج"
+                  : "حفظ المنتج"}
             </ButtonShadcn>
           </div>
         </form>

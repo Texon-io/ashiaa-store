@@ -139,7 +139,7 @@ export default function AddProductDialog({
             <div className="space-y-2">
               <Label htmlFor="price">السعر (ج.م)</Label>
               <ShadInput
-                className=""
+                className="h-11"
                 id="price"
                 name="price"
                 type="number"
@@ -150,7 +150,7 @@ export default function AddProductDialog({
             <div className="space-y-2">
               <Label htmlFor="stock">الكمية</Label>
               <ShadInput
-                className=""
+                className="h-11"
                 id="stock"
                 name="stock"
                 type="number"
@@ -178,7 +178,7 @@ export default function AddProductDialog({
             </label>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid  gap-6">
             {/* Main Image Section */}
             <div className="space-y-3 text-left">
               <Label>الصورة الرئيسية</Label>
@@ -213,7 +213,7 @@ export default function AddProductDialog({
                   <button
                     type="button"
                     onClick={() => mainFileRef.current.click()}
-                    className="w-32 h-32 border-2 border-dashed rounded-lg flex flex-col items-center justify-center text-gray-400 hover:border-accent-dark hover:text-accent-dark"
+                    className="w-full h-32 transition-colors duration-300 cursor-pointer border-2 border-dashed rounded-lg flex flex-col items-center justify-center text-gray-400 hover:border-accent-dark hover:text-accent-dark"
                   >
                     <ImagePlus size={24} />
                     <span className="text-[10px] mt-1">اضافة صورة</span>
@@ -223,7 +223,7 @@ export default function AddProductDialog({
             </div>
 
             {/* Additional Images Section */}
-            <div className="space-y-3 text-left">
+            {/* <div className="space-y-3 text-left">
               <Label>صور إضافية للمنتج</Label>
               <div className="flex flex-wrap gap-2">
                 <input
@@ -266,7 +266,7 @@ export default function AddProductDialog({
                   <span className="text-[8px] mt-1">اضافة صور</span>
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Action Buttons */}

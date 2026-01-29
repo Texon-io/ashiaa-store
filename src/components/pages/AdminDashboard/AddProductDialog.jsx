@@ -178,8 +178,7 @@ export default function AddProductDialog({
             </label>
           </div>
 
-          <div className="grid  gap-6">
-            {/* Main Image Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">            {/* Main Image Section */}
             <div className="space-y-3 text-left">
               <Label>الصورة الرئيسية</Label>
               <div className="flex flex-wrap gap-2">
@@ -219,11 +218,13 @@ export default function AddProductDialog({
                     <span className="text-[10px] mt-1">اضافة صورة</span>
                   </button>
                 )}
+
+
               </div>
             </div>
 
             {/* Additional Images Section */}
-            {/* <div className="space-y-3 text-left">
+            <div className="space-y-3 text-left">
               <Label>صور إضافية للمنتج</Label>
               <div className="flex flex-wrap gap-2">
                 <input
@@ -266,7 +267,7 @@ export default function AddProductDialog({
                   <span className="text-[8px] mt-1">اضافة صور</span>
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
 
           {/* Action Buttons */}

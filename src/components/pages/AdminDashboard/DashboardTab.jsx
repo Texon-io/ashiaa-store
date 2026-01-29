@@ -116,7 +116,7 @@ function DashboardTab({ setAddProductDialogOpen }) {
 
           <div className="mt-6 p-4 bg-accent-main/10 rounded-xl border border-accent-main/20">
             <p className="text-xs text-accent-dark italic">
-              تلميح: حافظ على تحديث معلومات المنتجات بانتظام لضمان دقة
+              تلميح: حافظ على تحديث معلومات المنتجات بانتظام لضمان الدقة
             </p>
           </div>
         </div>

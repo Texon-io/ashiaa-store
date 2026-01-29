@@ -12,7 +12,7 @@ import { useMemo } from "react";
 function ProductsTab({ setAddProductDialogOpen }) {
   const { searchTerm, setSearch } = useSearchStore();
   const { category, setCategory, categories } = categoriesStore();
-  const { products } = useAllProducts("All");
+  const { products } = useAllProducts("الكل");
 
   const displayedProducts = useMemo(() => {
     if (!products?.length) return [];
@@ -20,33 +20,31 @@ function ProductsTab({ setAddProductDialogOpen }) {
     let result = [...products];
 
     // 1️⃣ Category filter
-    if (category !== "All") {
+    if (category !== "الكل") {
       result = result.filter((p) => p.category === category);
     }
 
     // 2️⃣ Search filter
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
-      result = result.filter((p) => p.title.toLowerCase().includes(term));
+      result = result.filter((p) => p.name.toLowerCase().includes(term));
     }
 
     return result;
   }, [products, searchTerm, category]);
 
-  console.log("Products: ", displayedProducts);
-
   return (
     <div className="space-y-6">
       {/* Header: In the large screen, it's a row, in the small screen, it's a column */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h2 className="text-2xl lg:text-3xl font-bold text-gray-800">
-          Products
+        <h2 className="text-2xl lg:text-3xl font-bold text-dark-metallic">
+          المنتجات
         </h2>
         <button
           onClick={() => setAddProductDialogOpen(true)}
-          className="w-full sm:w-auto cursor-pointer flex items-center justify-center gap-2 bg-brand-main text-white px-4 py-2 rounded-lg hover:bg-brand-secondary2 transition-colors"
+          className="w-full sm:w-auto cursor-pointer flex items-center justify-center gap-2 bg-main-text text-white px-4 py-2 rounded-lg hover:bg-brand-secondary2 transition-colors"
         >
-          <PlusCircle size={20} /> Add Product
+          <PlusCircle size={20} /> إضافة منتج
         </button>
       </div>
 
@@ -55,9 +53,9 @@ function ProductsTab({ setAddProductDialogOpen }) {
         <div className="flex-1 space-y-2 text-left">
           <Label
             htmlFor="search"
-            className="text-sm font-medium text-brand-main2"
+            className="text-sm font-medium text-accent-dark-2"
           >
-            Search
+            البحث عن منتج
           </Label>
           <div className="relative">
             <Search
@@ -68,8 +66,8 @@ function ProductsTab({ setAddProductDialogOpen }) {
               value={searchTerm}
               onChange={(e) => setSearch(e.target.value)}
               id="search"
-              placeholder="Search products..."
-              className="pl-10 pr-4 py-2.5 border rounded-lg w-full outline-none focus:ring-2 ring-brand-main-trans shadow-sm text-sm"
+              placeholder="البحث عن منتج..."
+              className="pl-10 pr-4 py-2.5 border rounded-lg w-full outline-none focus:ring-2 ring-accent-dark-2 shadow-sm text-sm"
             />
           </div>
         </div>
@@ -80,14 +78,14 @@ function ProductsTab({ setAddProductDialogOpen }) {
             htmlFor="category"
             className="text-sm font-medium text-brand-main2"
           >
-            Category
+            تصنيف المنتج
           </Label>
           <CustomSelect
             id={`category`}
             value={category}
             onValueChange={setCategory}
             options={categories}
-            placeholder="Filter by Category"
+            placeholder="بالقسم"
           />
         </div>
       </div>
@@ -98,15 +96,18 @@ function ProductsTab({ setAddProductDialogOpen }) {
           <thead className="bg-gray-50 border-b">
             <tr className="divide-x text-center">
               <th className="p-4 font-semibold text-gray-600 text-sm">
-                Product
+                المنتج
+              </th>
+              <th className="p-4 font-semibold text-gray-600 text-sm">القسم</th>
+              <th className="p-4 font-semibold text-gray-600 text-sm">السعر</th>
+              <th className="p-4 font-semibold text-gray-600 text-sm">
+                الكمية
               </th>
               <th className="p-4 font-semibold text-gray-600 text-sm">
-                Category
+                الأكثر مبيعًا
               </th>
-              <th className="p-4 font-semibold text-gray-600 text-sm">Price</th>
-              <th className="p-4 font-semibold text-gray-600 text-sm">Stock</th>
               <th className="p-4 font-semibold text-gray-600 text-sm">
-                Actions
+                الإجراءات
               </th>
             </tr>
           </thead>

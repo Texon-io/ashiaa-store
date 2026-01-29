@@ -1,6 +1,4 @@
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-
-// كارت الإحصائيات بدون الـ Trends المعقدة
+// Stat Card Component
 function StatCard({ title, value, icon, description, color }) {
   return (
     <div className="bg-white p-6 rounded-2xl border shadow-sm flex items-center gap-5">
@@ -16,7 +14,7 @@ function StatCard({ title, value, icon, description, color }) {
   );
 }
 
-// عرض معلومات الفئات بشكل أبسط
+// Category Info Component
 function CategoryInfo({ label, count, color }) {
   return (
     <div className="flex items-center justify-between">
@@ -24,7 +22,7 @@ function CategoryInfo({ label, count, color }) {
         <div className={`w-2 h-2 rounded-full ${color}`} />
         <span className="text-sm font-medium text-gray-700">{label}</span>
       </div>
-      <span className="text-sm text-gray-500 font-mono">{count} Items</span>
+      <span className="text-sm text-gray-500 font-mono">{count} منتجات</span>
     </div>
   );
 }

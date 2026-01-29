@@ -1,106 +1,123 @@
-import { Ticket, LayoutGrid, Package, PlusCircle } from "lucide-react";
+import { Spotlight, LayoutGrid, Package, PlusCircle } from "lucide-react";
 import { CategoryInfo, StatCard } from "./HelpsComponents";
 import { useAllProducts } from "./useAllProducts";
 
-function DashboardTab({ setAddProductDialogOpen, setActiveTab }) {
-  const { numCategories, productsCount, categoryStats } = useAllProducts();
+function DashboardTab({ setAddProductDialogOpen }) {
+  const {
+    numCategories,
+    productsCount,
+    categoryStats,
+    bestSellingProducts = [],
+  } = useAllProducts();
+
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 animate-in fade-in duration-500 bg-main-bg p-4 lg:p-6 rounded-3xl">
       {/* Welcome Header */}
-      <div>
-        <h2 className="text-2xl lg:text-3xl font-bold text-gray-800">
-          Store Overview
+      <div className="flex flex-col gap-1">
+        <h2 className="text-2xl lg:text-3xl font-bold text-main-text">
+          مرحبًا بك في لوحة التحكم
         </h2>
-        <p className="text-gray-500 text-sm">
-          Summary of your inventory and store configurations.
+        <p className="text-accent-dark/70 text-sm font-medium">
+          نظرة عامة على أداء متجرك وإدارته
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         <StatCard
-          title="Total Products"
-          value={productsCount} // products.length
-          icon={<Package className="text-purple-600" size={24} />}
-          description="Total items in your catalog"
-          color="bg-purple-50"
+          title="إجمالي المنتجات"
+          value={productsCount}
+          icon={<Package className="text-accent-dark" size={24} />}
+          description="كل المنتجات المتاحة"
+          color="bg-card-bg"
         />
 
         <StatCard
-          title="Categories"
-          value={numCategories} // categories.length
-          icon={<LayoutGrid className="text-blue-600" size={24} />}
-          description="Product segments defined"
-          color="bg-blue-50"
+          title="الأقسام"
+          value={numCategories}
+          icon={<LayoutGrid className="text-accent-dark-2" size={24} />}
+          description="عدد الأقسام"
+          color="bg-main-bg-2"
+        />
+
+        <StatCard
+          title="الأكثر مبيعًا"
+          value={bestSellingProducts?.length || 0}
+          icon={<Spotlight className="text-dark-metallic" size={24} />}
+          description="المنتجات الأكثر مبيعًا"
+          color="bg-accent-main-light/30"
         />
       </div>
 
       {/* Quick Actions & Info */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Inventory Breakdown */}
-        <div className="bg-white p-6 rounded-2xl border shadow-sm">
-          <h3 className="font-bold text-gray-800 text-lg mb-6">
-            Category Distribution
+        <div className="bg-card-bg p-6 rounded-2xl border border-accent-main/30 shadow-sm">
+          <h3 className="font-bold text-main-text text-lg mb-6">
+            عدد المنتجات في كل قسم
           </h3>
           <div className="space-y-5">
-            {/* Categories go here */}
             <CategoryInfo
-              label="Bedroom"
-              count={categoryStats.Bedroom}
-              color="bg-fuchsia-500"
+              label="دفاتر"
+              count={categoryStats?.دفاتر || 0}
+              color="bg-fuchsia-400"
             />
             <CategoryInfo
-              label="Kitchen"
-              count={categoryStats.Kitchen}
-              color="bg-blue-500"
+              label="أقلام"
+              count={categoryStats?.أقلام || 0}
+              color="bg-orange-400"
             />
             <CategoryInfo
-              label="Accessories"
-              count={categoryStats.Accessories}
-              color="bg-emerald-500"
+              label="منظمات مكتب"
+              count={categoryStats?.["منظمات مكتب"] || 0}
+              color="bg-purple-400"
             />
             <CategoryInfo
-              label="Chairs"
-              count={categoryStats.Chairs}
-              color="bg-amber-500"
+              label="مجات"
+              count={categoryStats?.مجات || 0}
+              color="bg-red-400"
             />
             <CategoryInfo
-              label="Seating Room"
-              count={categoryStats["Sitting Room"]}
-              color="bg-red-500"
+              label="شنط"
+              count={categoryStats?.شنط || 0}
+              color="bg-yellow-400"
+            />
+            <CategoryInfo
+              label="باكيدچات أو بوكسات"
+              count={categoryStats?.["باكيدچات أو بوكسات"] || 0}
+              color="bg-blue-400"
+            />
+            <CategoryInfo
+              label="أخرى"
+              count={categoryStats?.أخرى || 0}
+              color="bg-gray-400"
             />
           </div>
         </div>
 
         {/* System Status / Quick Tips */}
-        <div className="bg-[#7C71DF]/5 p-6 rounded-2xl border border-[#7C71DF]/20">
-          <h3 className="font-bold text-[#7C71DF] text-lg mb-4">
-            Quick Actions
+        <div className="bg-main-bg-2 p-6 rounded-2xl border border-accent-main/50">
+          <h3 className="font-bold text-accent-dark text-lg mb-4">
+            إجراءات سريعة
           </h3>
           <div className="grid grid-cols-1 gap-3">
             <button
               onClick={() => setAddProductDialogOpen(true)}
-              className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 hover:border-[#7C71DF] transition-all cursor-pointer group"
+              className="flex items-center gap-3 p-4 bg-white rounded-xl border border-accent-main/20 hover:border-accent-dark hover:shadow-md transition-all cursor-pointer group"
             >
-              <div className="p-2 bg-purple-50 rounded-lg group-hover:bg-[#7C71DF] group-hover:text-white transition-colors">
+              <div className="p-2 bg-card-bg text-accent-dark rounded-lg group-hover:bg-accent-dark group-hover:text-secondary-text-light transition-colors">
                 <PlusCircle size={18} />
               </div>
-              <span className="text-sm font-medium text-gray-700">
-                Add New Product
+              <span className="text-sm font-semibold text-main-text">
+                إضافة منتج جديد
               </span>
             </button>
+          </div>
 
-            <button
-              onClick={() => setActiveTab("promos")}
-              className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 hover:border-[#7C71DF] transition-all cursor-pointer group"
-            >
-              <div className="p-2 bg-emerald-50 rounded-lg group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                <Ticket size={18} />
-              </div>
-              <span className="text-sm font-medium text-gray-700">
-                Manage Coupons
-              </span>
-            </button>
+          <div className="mt-6 p-4 bg-accent-main/10 rounded-xl border border-accent-main/20">
+            <p className="text-xs text-accent-dark italic">
+              تلميح: حافظ على تحديث معلومات المنتجات بانتظام لضمان دقة
+            </p>
           </div>
         </div>
       </div>

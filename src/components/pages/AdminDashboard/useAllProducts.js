@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   getAllProducts,
   addProduct,
@@ -20,8 +21,12 @@ export function useAllProducts(category) {
     queryFn: () => getAllProducts({ category }),
   });
 
-  // Calculates
+  // Calculated values
   const productsCount = products.length;
+
+  const bestSellingProducts = products
+    .slice()
+    .filter((p) => p.best_seller && p.best_seller > 0);
 
   const categoryStats = products.reduce((acc, product) => {
     const cat = product.category || "Uncategorized";
@@ -31,28 +36,36 @@ export function useAllProducts(category) {
 
   const numCategories = Object.keys(categoryStats).length;
 
+  // Mutations for adding, deleting, and editing products
+
   // 2. Adding a product
-  const { mutate: addProductMutate } = useMutation({
+  const { mutate: addProductMutate, isLoading: isAdding } = useMutation({
     mutationFn: addProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries(["products"]); // Update the cache
+      toast.success("تم إضافة المنتج بنجاح");
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
+    onError: (err) => toast.error(err.message),
   });
 
   // 3. Deleting a product
-  const { mutate: deleteProductMutate } = useMutation({
+  const { mutate: deleteProductMutate, isLoading: isDeleting } = useMutation({
     mutationFn: deleteProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries(["products"]);
+      toast.success("تم مسح المنتج");
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
+    onError: (err) => toast.error(err.message),
   });
 
   // 4. Editing a product
-  const { mutate: editProductMutate } = useMutation({
+  const { mutate: editProductMutate, isLoading: isEditing } = useMutation({
     mutationFn: editProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries(["products"]);
+      toast.success("تم تعديل المنتج بنجاح");
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
+    onError: (err) => toast.error(err.message),
   });
 
   return {
@@ -61,8 +74,13 @@ export function useAllProducts(category) {
     productsCount,
     numCategories,
     categoryStats,
+    bestSellingProducts,
     error,
     isLoading,
+
+    isAdding,
+    isDeleting,
+    isEditing,
     addProduct: addProductMutate,
     deleteProduct: deleteProductMutate,
     editProduct: editProductMutate,

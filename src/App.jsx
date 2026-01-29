@@ -26,7 +26,7 @@ function AppContent() {
   const location = useLocation(); // Now works because it's inside <BrowserRouter> (in main.jsx)
 
   // Check if current route is the admin dashboard to hide global UI elements
-  const isAdminPage = location.pathname === "/admin-dashboard_ashiaa2026";
+  const isAdminPage = location.pathname === "/admindashboard";
 
   useEffect(() => {
     // Set global document title
@@ -69,7 +69,7 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
 
           {/* Secured Admin Route */}
-          <Route path="/adminDashboard" element={<AdminDashboard />} />
+          <Route path="/admindashboard" element={<AdminDashboard />} />
 
           {/* Fallback: 404 Premium Page */}
           <Route path="*" element={<NotFound />} />

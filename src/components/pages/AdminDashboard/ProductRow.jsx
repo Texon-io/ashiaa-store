@@ -9,7 +9,7 @@ function ProductRow({ product }) {
   const [productEditDialogOpen, setProductEditDialogOpen] = useState(false); // Edit dialog
 
   const { deleteProduct } = useAllProducts();
-  const { title, image_url, category, price, stock } = product;
+  const { name, category, price, stock, main_image, best_seller } = product;
 
   return (
     <tr
@@ -18,20 +18,29 @@ function ProductRow({ product }) {
     >
       <td className="p-4 flex items-center gap-3 min-w-[200px]">
         <img
-          src={image_url}
-          alt={title}
+          src={main_image}
+          alt={name}
           className="w-10 h-10 lg:w-12 lg:h-12 rounded-lg flex-shrink-0"
         />
         <span className="font-medium text-gray-800 text-sm truncate">
-          {title}
+          {name}
         </span>
       </td>
 
       <td className="p-4 text-gray-600 text-sm">{category}</td>
-      <td className="p-4 font-bold text-brand-main text-sm">${price}</td>
+      <td className="p-4 font-bold text-brand-main text-sm">ج.م{price}</td>
       <td className="p-4">
-        <span className="px-3 py-1 bg-green-200 text-green-700 font-medium rounded-full text-[10px] lg:text-xs whitespace-nowrap">
-          {stock > 0 ? `${stock} In Stock` : "Out of Stock"}
+        <span
+          className={`px-3 py-1 ${stock > 0 ? "text-green-700 bg-green-200" : "text-red-600 bg-red-200"} font-medium rounded-full text-[10px] lg:text-xs whitespace-nowrap`}
+        >
+          {stock > 0 ? `${stock} في المخزن` : "نفذ من المخزن"}
+        </span>
+      </td>
+      <td className="p-4">
+        <span
+          className={`px-3 py-1  ${best_seller > 0 ? "text-orange-700 bg-orange-200" : "text-gray-600 bg-gray-200"} font-medium rounded-full text-[10px] lg:text-xs whitespace-nowrap`}
+        >
+          {best_seller > 0 ? `الاكثر مبيعا` : "عادي"}
         </span>
       </td>
 
@@ -42,14 +51,14 @@ function ProductRow({ product }) {
             onClick={() => setProductEditDialogOpen(true)} // Edit dialog open
             className="w-full xl:w-auto bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 shadow-sm rounded-lg transition-all cursor-pointer text-xs"
           >
-            Edit
+            تعديل
           </button>
 
           <button
             onClick={() => setProductDeleteDialogOpen(true)}
             className="w-full xl:w-auto bg-red-500 hover:bg-red-600 text-white px-3 py-1 shadow-sm rounded-lg transition-all cursor-pointer text-xs"
           >
-            Delete
+            حذف
           </button>
 
           {/* Edit dialog receive product */}
@@ -61,14 +70,13 @@ function ProductRow({ product }) {
 
           {/* Delete dialog */}
           <ConfirmDeleteDialog
-            title="Delete Product?"
-            description="Are you sure you want to delete this product?"
+            title="مسح المنتج؟"
+            description="هل أنت متأكد أنك تريد مسح هذا المنتج؟ هذا الإجراء لا يمكن التراجع عنه."
             open={productDeleteDialogOpen}
             onOpenChange={setProductDeleteDialogOpen}
             onConfirm={() => {
               deleteProduct(product.id);
               setProductDeleteDialogOpen(false);
-              toast.success("Product deleted successfully!");
             }}
           />
         </div>

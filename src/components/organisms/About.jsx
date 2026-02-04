@@ -30,7 +30,7 @@ const About = () => {
             >
               <img
                 loading="lazy"
-                src="../../../public/images/IMG_6608.jpg"
+                src="/images/IMG_6608.jpg"
                 alt="Stationery texture"
                 className="w-full h-full object-cover"
               />

@@ -97,7 +97,7 @@ const Hero = () => {
             className="relative z-20 w-48 h-64 lg:w-72 lg:h-96 bg-card-bg rounded-2xl shadow-2xl overflow-hidden p-2 lg:p-3 border-2 border-accent-dark"
           >
             <img
-              src="../../../public/images/hero.jpg"
+              src="/images/hero.jpg"
               alt="Notebook"
               className="w-full h-full object-cover rounded-xl shadow-inner"
             />
@@ -111,7 +111,7 @@ const Hero = () => {
             className="absolute -top-5 left-[10%] lg:left-[15%] z-30 w-16 h-24 lg:w-24 lg:h-32 bg-card-bg  backdrop-blur-md p-2 rounded-xl lg:rounded-2xl shadow-lg border-2 border-accent-dark"
           >
             <img
-              src="../../../public/images/hero-left.jpg"
+              src="/images/hero-left.jpg"
               alt="pen"
               className="w-full h-full object-cover rounded-lg"
             />
@@ -130,7 +130,7 @@ const Hero = () => {
             className="absolute bottom-[5%] right-[5%] lg:bottom-[10%] lg:right-[10%] z-30 w-20 h-20 lg:w-28 lg:h-28 bg-card-bg p-1.5 lg:p-2 rounded-full shadow-2xl border-2 border-accent-dark"
           >
             <img
-              src="../../../public/images/hero-right.jpg"
+              src="/images/hero-right.jpg"
               alt="accessory"
               className="w-full h-full object-cover rounded-full"
             />

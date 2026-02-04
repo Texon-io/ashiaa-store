@@ -26,7 +26,7 @@ export default function BestSellingProduct({
           {name}
         </h3>
 
-        <p className="p-2 text-center text-sm text-accent-dark-2">
+        <p className="p-2 text-center text-sm text-accent-dark-2 truncate">
           {description}
         </p>
 

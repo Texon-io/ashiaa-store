@@ -29,7 +29,8 @@ const About = () => {
               className="absolute inset-0 z-10 rounded-2xl overflow-hidden shadow-2xl border-12 border-card-bg"
             >
               <img
-                src="https://res.cloudinary.com/dcrvwnrds/image/upload/v1768588050/about-img-1_uf6zkv.webp"
+                loading="lazy"
+                src="../../../public/images/IMG_6608.jpg"
                 alt="Stationery texture"
                 className="w-full h-full object-cover"
               />

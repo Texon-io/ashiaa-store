@@ -6,8 +6,8 @@ import {
   Instagram,
   Send,
   AtSign,
-  MessageCircle, // بديل للواتساب في لوسيد
-  Music2, // بديل للتيك توك في لوسيد
+  MessageCircle,
+  Music2,
 } from "lucide-react";
 import LogoWord from "../atoms/LogoWord.jsx";
 import SecHeading from "../atoms/SecHeading.jsx";
@@ -15,42 +15,22 @@ import SecHeading from "../atoms/SecHeading.jsx";
 function Contact() {
   const socialLinks = [
     {
-      name: "WhatsApp",
-      // Lucide تستخدم MessageCircle كأيقونة تعبيرية للواتساب أو يمكنك استخدام Phone
-      icon: <MessageCircle size={28} className="text-green-600" />,
-      color: "hover:bg-green-50",
-      link: "https://wa.me/201116678912",
-    },
-    {
       name: "Instagram",
       icon: <Instagram size={28} className="text-pink-600" />,
       color: "hover:bg-pink-50",
-      link: "#",
+      link: "https://www.instagram.com/ashiaa__store?igsh=MWp6dXA4cTQ3ZGcyag%3D%3D&utm_source=qr",
     },
     {
       name: "Threads",
       icon: <AtSign size={28} className="text-black" />,
       color: "hover:bg-gray-100",
-      link: "#",
+      link: "https://www.threads.com/@ashiaa__store?igshid=NTc4MTIwNjQ2YQ==",
     },
     {
       name: "Telegram",
       icon: <Send size={28} className="text-blue-500" />,
       color: "hover:bg-blue-50",
-      link: "#",
-    },
-    {
-      name: "TikTok",
-      // Music2 هي الأيقونة الرسمية التي تمثل تيك توك في مكتبة Lucide
-      icon: <Music2 size={28} className="text-black" />,
-      color: "hover:bg-gray-50",
-      link: "#",
-    },
-    {
-      name: "Facebook",
-      icon: <Facebook size={28} className="text-blue-700" />,
-      color: "hover:bg-blue-50",
-      link: "#",
+      link: "https://t.me/matjar_ashiaa_store?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnrMVQSxoqjkAE4quyb9gsFq3Sp0Iu6pJv2TI6m39ileZo8MPV6Gm-Y9FhGg4_aem_AJVZF-APuKsP6yxFyx3pvA",
     },
   ];
 
@@ -73,20 +53,19 @@ function Contact() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* كارت معلومات التواصل الأساسية */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             className="lg:col-span-5 bg-white border border-accent-main/20 rounded-[2.5rem] p-8 shadow-sm"
           >
-            <div className="mb-8">
+            <div className="mb-10">
               <LogoWord>معلومات التواصل</LogoWord>
               <p className="text-gray-500 mt-2">
                 يسعدنا استقبال رسائلكم واستفساراتكم في أي وقت.
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className=" ">
               <div className="flex items-center gap-5 p-4 rounded-2xl bg-accent-dark/5 border border-transparent hover:border-accent-dark/20 transition-all group">
                 <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                   <Phone size={24} className="text-accent-dark" />
@@ -99,34 +78,19 @@ function Contact() {
                     className="text-lg font-medium text-dark-metallic"
                     dir="ltr"
                   >
-                    +20 111 667 8912
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-5 p-4 rounded-2xl bg-accent-dark/5 border border-transparent hover:border-accent-dark/20 transition-all group">
-                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                  <Mail size={24} className="text-accent-dark" />
-                </div>
-                <div>
-                  <h4 className="text-xs text-gray-400 font-bold uppercase tracking-wider">
-                    البريد الإلكتروني
-                  </h4>
-                  <p className="text-lg font-medium text-dark-metallic">
-                    hello@ashyaa.com
+                    011 2273 2600
                   </p>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* كارت السوشيال ميديا */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             className="lg:col-span-7 bg-accent-main/5 border border-accent-main/10 rounded-[2.5rem] p-8"
           >
-            <div className="mb-8">
+            <div className="mb-8 ">
               <LogoWord>تابعنا على</LogoWord>
               <p className="text-gray-500 mt-2">
                 انضم لمجتمعنا وكن أول من يعرف عن جديدنا.

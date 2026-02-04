@@ -23,7 +23,7 @@ function Navbar() {
       <div className="flex gap-4">
         <NavIcon className={`relative`} onClick={toggleCart} src={shoppingIcon}>
           {!itemCount || itemCount === 0 ? null : (
-            <div className="absolute bg-secondary top-0 right-0 rounded-full w-[15px] h-[15px] text-white/85 font-medium text-[12px] flex items-center justify-center leading-none">
+            <div className="absolute bg-accent-dark top-0 right-0 rounded-full w-[15px] h-[15px] text-white/85 border border-white  font-semibold text-[12px] flex items-center justify-center leading-none">
               {itemCount}
             </div>
           )}

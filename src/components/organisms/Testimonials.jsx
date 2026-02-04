@@ -2,19 +2,12 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const reviews = [
-  { id: 1, img: "/images/review-1.png", rotate: "-3deg" },
-  { id: 2, img: "/images/review-2.png", rotate: "2deg" },
-  { id: 3, img: "/images/review-3.png", rotate: "-2deg" },
-  { id: 4, img: "/images/review-4.png", rotate: "4deg" },
+  { id: 1, img: "/images/review-1.jfif", rotate: "-3deg" },
+  { id: 2, img: "/images/review-2.jfif", rotate: "2deg" },
+  { id: 3, img: "/images/review-3.jfif", rotate: "-2deg" },
+  { id: 4, img: "/images/review-4.jfif", rotate: "4deg" },
   { id: 5, img: "/images/review-5.png", rotate: "-1deg" },
-  { id: 6, img: "/images/review-6.png", rotate: "3deg" },
-  //TODO - Add more reviews
-  { id: 7, img: "/images/review-1.png", rotate: "-2deg" },
-  { id: 8, img: "/images/review-2.png", rotate: "4deg" },
-  { id: 9, img: "/images/review-3.png", rotate: "-3deg" },
-  { id: 10, img: "/images/review-4.png", rotate: "2deg" },
-  { id: 11, img: "/images/review-5.png", rotate: "-4deg" },
-  { id: 12, img: "/images/review-6.png", rotate: "1deg" },
+  { id: 6, img: "/images/review-6.jfif", rotate: "3deg" },
 ];
 
 const InstagramReviews = () => {
@@ -91,12 +84,14 @@ const InstagramReviews = () => {
         </motion.div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-16">
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="cursor-pointer px-8 py-3 border-2 border-dark-metallic text-dark-metallic rounded-full font-bold hover:bg-dark-metallic hover:text-white transition-all duration-300"
-          >
-            {showAll ? "عرض أقل" : "رؤية المزيد من الآراء"}
-          </button>
+          {reviews.length > initialItems && (
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="cursor-pointer px-8 py-3 border-2 border-dark-metallic text-dark-metallic rounded-full font-bold hover:bg-dark-metallic hover:text-white transition-all duration-300"
+            >
+              {showAll ? "عرض أقل" : "رؤية المزيد من الآراء"}
+            </button>
+          )}
 
           <motion.a
             href="https://www.instagram.com/ashiaa__store/"

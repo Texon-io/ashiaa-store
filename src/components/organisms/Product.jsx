@@ -5,18 +5,16 @@ import { placeHolder } from "../../utils/constants.js";
 import { useCart } from "../../hooks/useCart.jsx";
 
 function Product({ showModal, data }) {
+  const [activeImg, setActiveImg] = useState(main_image || tempImg);
   const { main_image, name, description, price, stock, id, additional_images } = data;
   const { addToCart } = useCart();
   const tempImg = placeHolder;
 
-  // State للتحكم في الصورة المعروضة حالياً
-  const [activeImg, setActiveImg] = useState(main_image || tempImg);
 
   function handleCloseModal(e) {
     if (e.target === e.currentTarget) showModal(false);
   }
 
-  // تجميع كل الصور في مصفوفة واحدة للعرض
   const allImages = [main_image, ...(additional_images || [])].filter(Boolean);
 
   return (

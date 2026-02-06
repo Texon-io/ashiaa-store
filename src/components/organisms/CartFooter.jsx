@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useCart } from "../../hooks/useCart.jsx";
 import { useWhatsappOrder } from "../../hooks/useWhatsappOrder.js";
 
-const PHONE = "01122732600";
+const PHONE = "+201122732600";
 
 function CartFooter() {
   const { cartItems, clearCart } = useCart();

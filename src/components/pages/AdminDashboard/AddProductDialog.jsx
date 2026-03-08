@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import imageCompression from "browser-image-compression";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { ImagePlus, X, Images } from "lucide-react";
 import CustomSelect from "./CustomSelect";
 import { useAllProducts } from "./useAllProducts";
+import { toast } from "sonner";
 
 const categories = [
   { id: "باكيدچات أو بوكسات", label: "باكيدچات أو بوكسات" },
@@ -36,6 +38,25 @@ export default function AddProductDialog({
   const additionalFilesRef = useRef(null);
   const { addProduct, editProduct, isAdding, isEditing } = useAllProducts();
 
+  // Compression options
+  const compressionOptions = {
+    maxSizeMB: 0.3,
+    maxWidthOrHeight: 1280,
+    useWebWorker: true,
+    fileType: "image/webp",
+  };
+
+  // Process image function
+  const processImage = async (image) => {
+    if (!image || typeof image === "string") return image;
+    try {
+      return await imageCompression(image, compressionOptions);
+    } catch (error) {
+      console.error("Error compressing image:", error);
+      return image;
+    }
+  };
+
   useEffect(() => {
     if (productToEdit) {
       setSelectedCategory(productToEdit.category);
@@ -55,12 +76,6 @@ export default function AddProductDialog({
     if (file) setMainImage(file);
   };
 
-  // Handle additional images change
-  const handleAdditionalImagesChange = (e) => {
-    const files = Array.from(e.target.files);
-    setAdditionalImages((prev) => [...prev, ...files]);
-  };
-
   const removeMainImage = () => {
     setMainImage(null);
     if (mainFileRef.current) mainFileRef.current.value = "";
@@ -70,8 +85,21 @@ export default function AddProductDialog({
     setAdditionalImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (additionalImages.length > 5) {
+      toast.info(
+        "عفواً، الحد الأقصى للصور الإضافية هو 5 صور فقط لضمان سرعة الموقع.",
+      );
+      return;
+    }
+
+    const optimizedMain = await processImage(mainImage);
+
+    const optimizedAdditionals = await Promise.all(
+      additionalImages.map((img) => processImage(img)),
+    );
 
     const productData = {
       name: e.target.name.value,
@@ -79,8 +107,8 @@ export default function AddProductDialog({
       price: e.target.price.value,
       stock: e.target.stock.value,
       category: selectedCategory,
-      main_image: mainImage,
-      additional_images: additionalImages,
+      main_image: optimizedMain,
+      additional_images: optimizedAdditionals,
       best_seller: isBestSeller,
     };
 
@@ -91,6 +119,15 @@ export default function AddProductDialog({
     }
 
     setOpen(false);
+  };
+
+  const handleAdditionalImagesChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (additionalImages.length + files.length > 5) {
+      alert("لا يمكن إضافة أكثر من 5 صور إضافية.");
+      return;
+    }
+    setAdditionalImages((prev) => [...prev, ...files]);
   };
 
   return (
@@ -178,7 +215,9 @@ export default function AddProductDialog({
             </label>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">            {/* Main Image Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {" "}
+            {/* Main Image Section */}
             <div className="space-y-3 text-left">
               <Label>الصورة الرئيسية</Label>
               <div className="flex flex-wrap gap-2">
@@ -218,11 +257,8 @@ export default function AddProductDialog({
                     <span className="text-[10px] mt-1">اضافة صورة</span>
                   </button>
                 )}
-
-
               </div>
             </div>
-
             {/* Additional Images Section */}
             <div className="space-y-3 text-left">
               <Label>صور إضافية للمنتج</Label>

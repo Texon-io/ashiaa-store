@@ -2,10 +2,11 @@ import ProductCardDetails from "../atoms/ProductCardDetails.jsx";
 import { placeHolder } from "../../utils/constants.js";
 import { useCart } from "../../hooks/useCart.jsx";
 
+// ✅ هل احنا على Netlify ولا localhost؟
+const IS_NETLIFY = window.location.hostname !== "localhost";
+
 function Card({ data, showModal, setData }) {
-  // Add to cart
   const { addToCart } = useCart();
-  const tempImg = placeHolder;
 
   const {
     main_image,
@@ -16,6 +17,11 @@ function Card({ data, showModal, setData }) {
     stock = 0,
     id,
   } = data;
+
+  // ✅ على localhost → صورة أصلية | على Netlify → optimized
+  const optimizedImage = IS_NETLIFY
+    ? `/.netlify/images?url=${encodeURIComponent(main_image)}&w=400&q=80`
+    : main_image || placeHolder;
 
   return (
     <div className="rounded-lg min-w-full bg-accent-main/25 min-h-[420px] shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
@@ -28,12 +34,16 @@ function Card({ data, showModal, setData }) {
       >
         <img
           className="w-full h-[305px] object-cover transition-transform duration-500 hover:scale-105"
-          src={main_image || tempImg}
+          src={optimizedImage}
+          loading="lazy"
+          decoding="async"
           alt={`${category}: ${name}`}
+          onError={(e) => {
+            e.target.src = placeHolder;
+          }}
         />
       </div>
 
-      {/* Pass only the needed props about the details of product*/}
       <ProductCardDetails
         id={id}
         name={name}

@@ -1,27 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
-import { getData } from "../api/products.js";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getData } from "../api/products";
+import { ALL_PRODUCTS_KEY } from "./useAllProducts";
 
-/**
- * Hook for fetching products based on a specific category
- */
 export default function useProducts(
-  category = "",
+  category,
   enabled = true,
-  bestSeller = false
+  bestSeller = false,
 ) {
+  const queryClient = useQueryClient();
+  const key = ["products", { category, bestSeller }];
+
   return useQuery({
-    queryKey: ["products", { category, bestSeller }],
+    queryKey: key,
     queryFn: () => getData(category, bestSeller),
     enabled,
+    staleTime: Infinity,
+    gcTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
 
-    // Logic optimizations:
-    staleTime: 1000 * 60 * 1, // Data is considered fresh for 1 minutes
-    gcTime: 1000 * 60 * 30, // Keep unused data in memory for 30 minutes
+    initialData: () => {
+      const all = queryClient.getQueryData(ALL_PRODUCTS_KEY);
+      if (!all) return undefined;
+      const slice = all.filter((p) => p.category === category);
+      return slice.length > 0 ? slice : undefined;
+    },
 
-    // Automatic sync triggers:
-    refetchOnWindowFocus: true, // Sync data when user returns to the tab
-    refetchOnMount: true, // Sync data when the component re-mounts
-
-    retry: 2, // Retry failed requests twice
+    initialDataUpdatedAt: () =>
+      queryClient.getQueryState(ALL_PRODUCTS_KEY)?.dataUpdatedAt,
   });
 }

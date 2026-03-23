@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { getData } from "../api/products";
 
@@ -12,70 +12,46 @@ const ALL_CATEGORIES = [
   "أخرى",
 ];
 
-/**
- * Hook to fetch all products and prefetch category-specific data
- */
+export const ALL_PRODUCTS_KEY = ["products", ""];
+
 export default function useAllProducts(enabled = true) {
   const queryClient = useQueryClient();
 
-  // Fetch main "all" data
   const {
     data: mainAllData,
     isError,
     error,
+    isLoading,
   } = useQuery({
-    queryKey: ["products", ""],
+    queryKey: ALL_PRODUCTS_KEY,
     queryFn: () => getData(""),
-    enabled: enabled,
-
-    // Keep consistent with useProducts logic
-    staleTime: 1000 * 60 * 1,
-    gcTime: 1000 * 60 * 30,
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
+    enabled,
+    staleTime: Infinity,
+    gcTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 
-  // Prefetch all categories data in the background
-  useEffect(() => {
-    if (!enabled) return;
-
+  useMemo(() => {
+    if (!mainAllData) return;
     ALL_CATEGORIES.forEach((cat) => {
-      // IMPORTANT: Unified queryKey to match useProducts hook structure
-      // This ensures that when a user switches to a category, the data is already in cache
-      const categoryKey = ["products", { category: cat, bestSeller: false }];
-
-      if (!queryClient.getQueryData(categoryKey)) {
-        queryClient.prefetchQuery({
-          queryKey: categoryKey,
-          queryFn: () => getData(cat, false),
-          staleTime: 1000 * 60 * 1,
-        });
+      const key = ["products", { category: cat, bestSeller: false }];
+      if (!queryClient.getQueryData(key)) {
+        queryClient.setQueryData(
+          key,
+          mainAllData.filter((p) => p.category === cat),
+        );
       }
     });
-  }, [enabled, queryClient]);
+  }, [mainAllData, queryClient]);
 
-  // Aggregate products from the most reliable source available
-  const products = useMemo(() => {
-    if (!enabled) return [];
+  const products =
+    mainAllData ?? queryClient.getQueryData(ALL_PRODUCTS_KEY) ?? [];
 
-    // Priority 1: Current fetch result for "All"
-    if (mainAllData) return mainAllData;
-
-    // Priority 2: Existing cache for the "all" key
-    const allCached = queryClient.getQueryData(["products", ""]);
-    if (allCached) return allCached;
-
-    // Priority 3: Combine data from individual category caches using the unified Object Key
-    return ALL_CATEGORIES.flatMap((cat) => {
-      const cachedData = queryClient.getQueryData([
-        "products",
-        { category: cat, bestSeller: false },
-      ]);
-      return cachedData || [];
-    });
-  }, [enabled, queryClient, mainAllData]);
-
-  const isLoading = enabled && products.length === 0;
-
-  return { products, isLoading, isError, error };
+  return {
+    products,
+    isLoading: enabled && isLoading && products.length === 0,
+    isError,
+    error,
+  };
 }

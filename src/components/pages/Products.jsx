@@ -1,4 +1,4 @@
-import {  useState, useEffect, useMemo } from "react"; // أضفنا useMemo
+import { useState, useEffect, useMemo } from "react"; // أضفنا useMemo
 import { useSearchParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -45,7 +45,7 @@ function Products() {
   // Default active category from URL or "الكل"
   const [activeCategory, setActiveCategory] = useState(() => {
     const categoryFromURL = new URLSearchParams(window.location.search).get(
-      "category"
+      "category",
     );
     return map[categoryFromURL] || "الكل";
   });
@@ -132,8 +132,6 @@ function Products() {
 
   if (allIsError || catIsError)
     return <Error message={allError?.message || catError?.message} />;
-
-  // console.log(isAllActive, activeCategory, allProducts, filteredProducts);
 
   return (
     <>

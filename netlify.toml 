@@ -1,12 +1,11 @@
-# netlify.toml
+[images]
+  remote_images = ["https://ysxopfifneumlahkorft.supabase.co/storage/v1/object/public/.*"]
 
-# الصور اللي بتتحمل عبر Netlify Image CDN
 [[headers]]
   for = "/.netlify/images*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# ملفات الـ build (JS و CSS)
 [[headers]]
   for = "/assets/*"
   [headers.values]

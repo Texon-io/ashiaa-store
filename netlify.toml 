@@ -1,5 +1,5 @@
 [images]
-  remote_images = ["https://ysxopfifneumlahkorft.supabase.co/storage/v1/object/public/.*"]
+  remote_images = ["https://ysxopfifneumlahkorft.supabase.co/.*"]
 
 [[headers]]
   for = "/.netlify/images*"

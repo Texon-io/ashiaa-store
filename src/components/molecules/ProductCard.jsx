@@ -2,7 +2,6 @@ import ProductCardDetails from "../atoms/ProductCardDetails.jsx";
 import { placeHolder } from "../../utils/constants.js";
 import { useCart } from "../../hooks/useCart.jsx";
 
-// ✅ هل احنا على Netlify ولا localhost؟
 const IS_NETLIFY = window.location.hostname !== "localhost";
 
 function Card({ data, showModal, setData }) {
@@ -18,7 +17,6 @@ function Card({ data, showModal, setData }) {
     id,
   } = data;
 
-  // ✅ على localhost → صورة أصلية | على Netlify → optimized
   const optimizedImage = IS_NETLIFY
     ? `/.netlify/images?url=${encodeURIComponent(main_image)}&w=400&q=80`
     : main_image || placeHolder;

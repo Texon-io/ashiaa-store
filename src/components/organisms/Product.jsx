@@ -1,31 +1,35 @@
 import { motion } from "framer-motion";
-import { useState } from "react"; // استيراد useState لتغيير الصورة
+import { useState } from "react";
 import Button from "../atoms/Button.jsx";
 import { placeHolder } from "../../utils/constants.js";
 import { useCart } from "../../hooks/useCart.jsx";
-import { useEffect } from "react";
+
+const IS_NETLIFY = window.location.hostname !== "localhost";
+
+const optimizeImg = (url, width = 800) => {
+  if (!url) return placeHolder;
+  if (!IS_NETLIFY) return url;
+  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${width}&q=85`;
+};
 
 function Product({ showModal, data }) {
-  // 1. استدعاء الـ Hook الخاص بالسلة (دائماً في البداية)
   const { addToCart } = useCart();
+  const [activeImg, setActiveImg] = useState(() =>
+    optimizeImg(data?.main_image),
+  );
 
-  // 2. الـ State لازم تكون فوق، وبنستخدم data?.main_image عشان لو الـ data لسه مجاتش الكود ميوقفش
-  const [activeImg, setActiveImg] = useState(data?.main_image || placeHolder);
-
-  // 3. سطر الحماية: لو مفيش بيانات، اخرج "بعد" استدعاء الـ Hooks
   if (!data || Object.keys(data).length === 0) return null;
 
-  // 4. استخراج البيانات (Destructuring) - الترتيب هنا آمن لأننا عدينا سطر الحماية
-  const { main_image, name, description, price, stock, id, additional_images } = data;
-  const tempImg = placeHolder;
+  const { main_image, name, description, price, stock, id, additional_images } =
+    data;
 
-  // 5. دالة إغلاق المودال
   function handleCloseModal(e) {
     if (e.target === e.currentTarget) showModal(false);
   }
 
-  // 6. تجميع الصور
   const allImages = [main_image, ...(additional_images || [])].filter(Boolean);
+  const allImagesOptimized = allImages.map((img) => optimizeImg(img));
+
   return (
     <div
       onClick={handleCloseModal}
@@ -44,43 +48,54 @@ function Product({ showModal, data }) {
           &times;
         </span>
 
-        {/* Left side (text) */}
+        {/* Left side */}
         <div className="md:w-1/2 w-full h-1/2 md:h-full p-5 md:p-8 flex flex-col">
-          <h5 className="text-accent-dark text-2xl md:text-4xl font-reqaa mb-4">{name}</h5>
+          <h5 className="text-accent-dark text-2xl md:text-4xl font-reqaa mb-4">
+            {name}
+          </h5>
           <p className="text-lg md:text-xl mb-6">{description}</p>
-
           <div className="mt-auto">
             <div className="text-accent-dark flex justify-between items-center mb-4 text-lg">
               <span className="font-semibold">{price} ج.م</span>
               <span>الكمية: {stock}</span>
             </div>
-            <Button onClick={() => addToCart({ name, price, image: activeImg, id })} className="w-full">
+            <Button
+              onClick={() => addToCart({ name, price, image: activeImg, id })}
+              className="w-full"
+            >
               أضف إلى السلة
             </Button>
           </div>
         </div>
 
-        {/* Right side (images) */}
+        {/* Right side */}
         <div className="md:w-1/2 w-full h-1/2 md:h-full p-4 bg-accent-main/50 flex flex-col gap-4">
-          {/* Main Image View */}
           <div className="flex-1 flex justify-center items-center overflow-hidden">
             <img
               src={activeImg}
               alt={name}
               className="max-h-full max-w-full rounded-xl shadow-lg object-contain"
+              onError={(e) => {
+                e.target.src = placeHolder;
+              }}
             />
           </div>
 
-          {/* Thumbnails Row */}
-          {allImages.length > 1 && (
+          {allImagesOptimized.length > 1 && (
             <div className="flex gap-2 overflow-x-auto pb-2 justify-center">
-              {allImages.map((img, index) => (
+              {allImagesOptimized.map((img, index) => (
                 <img
                   key={index}
                   src={img}
                   onClick={() => setActiveImg(img)}
-                  className={`w-16 h-16 md:w-20 md:h-20 rounded-md cursor-pointer object-cover border-2 transition-all ${activeImg === img ? "border-accent-dark scale-105" : "border-transparent opacity-70"
-                    }`}
+                  className={`w-16 h-16 md:w-20 md:h-20 rounded-md cursor-pointer object-cover border-2 transition-all ${
+                    activeImg === img
+                      ? "border-accent-dark scale-105"
+                      : "border-transparent opacity-70"
+                  }`}
+                  onError={(e) => {
+                    e.target.src = placeHolder;
+                  }}
                 />
               ))}
             </div>

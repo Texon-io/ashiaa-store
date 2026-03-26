@@ -19,6 +19,8 @@ export function useAllProducts(category) {
   } = useQuery({
     queryKey: ["products", category],
     queryFn: () => getAllProducts({ category }),
+    staleTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
   });
 
   // Calculated values

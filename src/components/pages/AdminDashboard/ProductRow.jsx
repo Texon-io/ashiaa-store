@@ -11,6 +11,12 @@ function ProductRow({ product }) {
   const { deleteProduct } = useAllProducts();
   const { name, category, price, stock, main_image, best_seller } = product;
 
+  const IS_NETLIFY = window.location.hostname !== "localhost";
+
+  const optimizedImage = IS_NETLIFY
+    ? `/.netlify/images?url=${encodeURIComponent(main_image)}&w=100&q=75`
+    : main_image;
+
   return (
     <tr
       key={product.id}
@@ -18,7 +24,7 @@ function ProductRow({ product }) {
     >
       <td className="p-4 flex items-center gap-3 min-w-[200px]">
         <img
-          src={main_image}
+          src={optimizedImage}
           alt={name}
           className="w-10 h-10 lg:w-12 lg:h-12 rounded-lg flex-shrink-0"
         />

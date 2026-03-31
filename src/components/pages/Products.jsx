@@ -15,6 +15,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import useProducts from "../../hooks/useProducts.js";
 import useAllProducts from "../../hooks/useAllProducts.js";
 import { lazy } from "react";
+import SearchBar from "../atoms/SearchBar.jsx";
+import NoResultsFound from "../molecules/NoResultsFound.jsx";
 
 const ALL_CATEGORIES = [
   "دفاتر",
@@ -41,6 +43,10 @@ function Products() {
   const [dataToShow, setDataToShow] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState("");
+
+  const [searchedItems, setSearchedItems] = useState([]);
+  const [isSearchedFound, setIsSearchedFound] = useState(true);
 
   // Default active category from URL or "الكل"
   const [activeCategory, setActiveCategory] = useState(() => {
@@ -133,6 +139,29 @@ function Products() {
   if (allIsError || catIsError)
     return <Error message={allError?.message || catError?.message} />;
 
+  // console.log(isAllActive, activeCategory, allProducts, filteredProducts);
+
+  function onSearch(query) {
+    const lowerQuery = query.toLowerCase().trim();
+
+    const searchBase = isAllActive ? allProducts : currentCategoryProducts;
+    const results = searchBase.filter((product) =>
+      product.name.toLowerCase().includes(lowerQuery),
+    );
+    if (query && results.length === 0) {
+      setIsSearchedFound(false);
+      setSearchedItems([]);
+    } else {
+      setIsSearchedFound(true);
+      setSearchedItems(results);
+    }
+  }
+
+  function handleSearch(newQuery) {
+    setQuery(newQuery);
+    onSearch(newQuery);
+  }
+
   return (
     <>
       <AnimatePresence>
@@ -141,11 +170,14 @@ function Products() {
         )}
       </AnimatePresence>
 
-      <div className="p-6 px-8 mt-14">
-        <div className="flex max-sm:flex-col justify-between items-start sm:items-center my-4 ">
-          <LogoWord className="text-4xl text-accent-dark-2 pr-2">
-            منتجاتنا
-          </LogoWord>
+      <div className="p-6 px-8 mt-14 ">
+        <div className="flex max-sm:flex-col justify-between items-start sm:items-center my-6 gap-4">
+          <div className="flex  items-center gap-6 w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
+            <LogoWord className="text-4xl text-accent-dark-2 pr-2">
+              منتجاتنا
+            </LogoWord>
+            <SearchBar onSearch={onSearch} query={query} setQuery={setQuery} />
+          </div>
 
           {!finalLoading && (
             <CategoriesList
@@ -206,16 +238,32 @@ function Products() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full col-span-full"
+                className={`${searchedItems.length > 0 && isSearchedFound ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "mx-auto"} gap-5 w-full col-span-full`}
               >
-                {currProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    data={product}
-                    showModal={setShowProductModal}
-                    setData={setDataToShow}
+                {searchedItems.length > 0 && isSearchedFound ? (
+                  searchedItems.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      data={product}
+                      showModal={setShowProductModal}
+                      setData={setDataToShow}
+                    />
+                  ))
+                ) : searchedItems.length === 0 && !isSearchedFound ? (
+                  <NoResultsFound
+                    searchTerm={query}
+                    onResetSearch={() => handleSearch("")} // دالة بتمسح نص البحث
                   />
-                ))}
+                ) : (
+                  currProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      data={product}
+                      showModal={setShowProductModal}
+                      setData={setDataToShow}
+                    />
+                  ))
+                )}
               </motion.div>
             )}
           </AnimatePresence>

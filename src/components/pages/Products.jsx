@@ -47,7 +47,6 @@ function Products() {
 
   const [searchedItems, setSearchedItems] = useState([]);
   const [isSearchedFound, setIsSearchedFound] = useState(true);
-
   // Default active category from URL or "الكل"
   const [activeCategory, setActiveCategory] = useState(() => {
     const categoryFromURL = new URLSearchParams(window.location.search).get(
@@ -238,7 +237,7 @@ function Products() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className={`${searchedItems.length > 0 && isSearchedFound ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" : "mx-auto"} gap-5 w-full col-span-full`}
+                className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-full col-span-full`}
               >
                 {searchedItems.length > 0 && isSearchedFound ? (
                   searchedItems.map((product) => (

@@ -62,6 +62,7 @@ function Product({ showModal, data }) {
             <Button
               onClick={() => addToCart({ name, price, image: activeImg, id })}
               className="w-full"
+              disabled={stock === 0 || stock < 0}
             >
               أضف إلى السلة
             </Button>

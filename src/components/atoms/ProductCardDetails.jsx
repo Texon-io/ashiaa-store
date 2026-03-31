@@ -36,6 +36,7 @@ const ProductCardDetails = ({
         onClick={() => onAddToCart({ name, price, image, id })}
         className="w-full mx-0 mt-2"
         size={"sm"}
+        disabled={stock === 0 || stock < 0}
       >
         أضف إلى السلة
       </Button>

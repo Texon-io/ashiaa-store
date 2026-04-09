@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../atoms/Button.jsx";
 import { placeHolder } from "../../utils/constants.js";
 import { useCart } from "../../hooks/useCart.jsx";
@@ -9,26 +9,80 @@ const IS_NETLIFY = window.location.hostname !== "localhost";
 const optimizeImg = (url, width = 800) => {
   if (!url) return placeHolder;
   if (!IS_NETLIFY) return url;
-  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${width}&q=85`;
+  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${width}&q=80`;
 };
+
+// Thumbnail: يتحمل الصورة الصغيرة بس لما يتعمله click أو hover لأول مرة
+function LazyThumbnail({ imgUrl, isActive, onClick }) {
+  const [loaded, setLoaded] = useState(false);
+  const [src, setSrc] = useState(null);
+
+  // لو هي الصورة النشطة، حملها فوراً (هي الأولى الـ main image)
+  useEffect(() => {
+    if (isActive && !src) {
+      setSrc(optimizeImg(imgUrl, 150));
+      setLoaded(true);
+    }
+  }, [isActive, imgUrl, src]);
+
+  const handleInteraction = () => {
+    if (!src) {
+      setSrc(optimizeImg(imgUrl, 150));
+      setLoaded(true);
+    }
+    onClick();
+  };
+
+  return (
+    <div
+      onClick={handleInteraction}
+      onMouseEnter={() => {
+        // preload on hover قبل الضغط بفارق لحظة
+        if (!src) setSrc(optimizeImg(imgUrl, 150));
+      }}
+      className={`w-16 h-16 md:w-20 md:h-20 rounded-md cursor-pointer overflow-hidden border-2 transition-all flex-shrink-0 bg-accent-main/30 ${
+        isActive
+          ? "border-accent-dark scale-105"
+          : "border-transparent opacity-70 hover:opacity-100"
+      }`}
+    >
+      {src ? (
+        <img
+          src={src}
+          alt=""
+          decoding="async"
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            e.target.src = placeHolder;
+          }}
+        />
+      ) : (
+        // placeholder بسيط بدون أي طلب شبكة
+        <div className="w-full h-full bg-accent-main/20 flex items-center justify-center">
+          <span className="text-accent-dark/30 text-xs">•</span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function Product({ showModal, data }) {
   const { addToCart } = useCart();
-  const [activeImg, setActiveImg] = useState(() =>
-    optimizeImg(data?.main_image),
-  );
+  const [activeImgOriginal, setActiveImgOriginal] = useState(() => data?.main_image);
+
+  useEffect(() => {
+    if (data?.main_image) setActiveImgOriginal(data.main_image);
+  }, [data]);
 
   if (!data || Object.keys(data).length === 0) return null;
 
-  const { main_image, name, description, price, stock, id, additional_images } =
-    data;
+  const { main_image, name, description, price, stock, id, additional_images } = data;
 
   function handleCloseModal(e) {
     if (e.target === e.currentTarget) showModal(false);
   }
 
   const allImages = [main_image, ...(additional_images || [])].filter(Boolean);
-  const allImagesOptimized = allImages.map((img) => optimizeImg(img));
 
   return (
     <div
@@ -60,7 +114,7 @@ function Product({ showModal, data }) {
               <span>الكمية: {stock}</span>
             </div>
             <Button
-              onClick={() => addToCart({ name, price, image: activeImg, id })}
+              onClick={() => addToCart({ name, price, image: activeImgOriginal, id })}
               className="w-full"
               disabled={stock === 0 || stock < 0}
             >
@@ -71,32 +125,29 @@ function Product({ showModal, data }) {
 
         {/* Right side */}
         <div className="md:w-1/2 w-full h-1/2 md:h-full p-4 bg-accent-main/50 flex flex-col gap-4">
+          {/* الصورة الكبيرة النشطة - بتتحمل بس لما يختارها */}
           <div className="flex-1 flex justify-center items-center overflow-hidden">
             <img
-              src={activeImg}
+              key={activeImgOriginal}
+              src={optimizeImg(activeImgOriginal, 800)}
               alt={name}
-              className="max-h-full max-w-full rounded-xl shadow-lg object-contain"
+              decoding="async"
+              className="max-h-full max-w-full rounded-xl shadow-lg object-contain transition-opacity duration-300"
               onError={(e) => {
                 e.target.src = placeHolder;
               }}
             />
           </div>
 
-          {allImagesOptimized.length > 1 && (
+          {/* الصور المصغرة - لا تتحمل إلا عند hover أو click */}
+          {allImages.length > 1 && (
             <div className="flex gap-2 overflow-x-auto pb-2 justify-center">
-              {allImagesOptimized.map((img, index) => (
-                <img
+              {allImages.map((img, index) => (
+                <LazyThumbnail
                   key={index}
-                  src={img}
-                  onClick={() => setActiveImg(img)}
-                  className={`w-16 h-16 md:w-20 md:h-20 rounded-md cursor-pointer object-cover border-2 transition-all ${
-                    activeImg === img
-                      ? "border-accent-dark scale-105"
-                      : "border-transparent opacity-70"
-                  }`}
-                  onError={(e) => {
-                    e.target.src = placeHolder;
-                  }}
+                  imgUrl={img}
+                  isActive={activeImgOriginal === img}
+                  onClick={() => setActiveImgOriginal(img)}
                 />
               ))}
             </div>

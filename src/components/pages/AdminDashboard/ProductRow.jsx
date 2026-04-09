@@ -26,6 +26,8 @@ function ProductRow({ product }) {
         <img
           src={optimizedImage}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className="w-10 h-10 lg:w-12 lg:h-12 rounded-lg flex-shrink-0"
         />
         <span className="font-medium text-gray-800 text-sm truncate">

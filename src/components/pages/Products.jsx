@@ -126,7 +126,7 @@ function Products() {
   /* ===============================
       Pagination Logic
   =============================== */
-  const itemsPerPage = 12;
+  const itemsPerPage = 8;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currProducts = filteredProducts.slice(startIndex, endIndex);

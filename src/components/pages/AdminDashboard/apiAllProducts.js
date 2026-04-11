@@ -20,7 +20,7 @@ async function uploadImage(file) {
 
   const { data, error: storageError } = await supabase.storage
     .from("product-images")
-    .upload(filePath, file, { cacheControl: "31536000", upsert: true });
+    .upload(filePath, file, { cacheControl: "max-age=31536000, public", upsert: true });
 
   if (storageError) {
     console.error("Storage Error Details:", storageError);

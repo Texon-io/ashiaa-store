@@ -17,9 +17,9 @@ function Card({ data, showModal, setData }) {
     id,
   } = data;
 
-  const optimizedImage = IS_NETLIFY
-    ? `/.netlify/images?url=${encodeURIComponent(main_image)}&w=400&q=80`
-    : main_image || placeHolder;
+  const optimizedImage = main_image 
+    ? `https://images.weserv.nl/?url=${encodeURIComponent(main_image)}&w=400&q=80&output=webp`
+    : placeHolder;
 
   return (
     <div className="rounded-lg min-w-full bg-accent-main/25 min-h-[420px] shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">

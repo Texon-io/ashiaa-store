@@ -4,10 +4,8 @@ const IS_NETLIFY = window.location.hostname !== "localhost";
 
 const optimizeImg = (url, width = 100) => {
   if (!url) return placeHolder;
-  // If it's already a netlify optimized url, we might not want to re-wrap it, but since we are sending original url now, it's fine.
-  if (url.includes("/.netlify/images")) return url;
-  if (!IS_NETLIFY) return url;
-  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${width}&q=80`;
+  // Always use weserv for proxying/caching to save Supabase egress
+  return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=${width}&q=80&output=webp`;
 };
 
 function CartItemImg({ image, name }) {

@@ -40,8 +40,8 @@ export default function AddProductDialog({
 
   // Compression options
   const compressionOptions = {
-    maxSizeMB: 0.3,
-    maxWidthOrHeight: 1280,
+    maxSizeMB: 0.1,
+    maxWidthOrHeight: 800,
     useWebWorker: true,
     fileType: "image/webp",
   };

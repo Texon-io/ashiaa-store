@@ -8,8 +8,8 @@ const IS_NETLIFY = window.location.hostname !== "localhost";
 
 const optimizeImg = (url, width = 800) => {
   if (!url) return placeHolder;
-  if (!IS_NETLIFY) return url;
-  return `/.netlify/images?url=${encodeURIComponent(url)}&w=${width}&q=80`;
+  // Always use weserv for proxying/caching to save Supabase egress
+  return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=${width}&q=80&output=webp`;
 };
 
 // Thumbnail: يتحمل الصورة الصغيرة بس لما يتعمله click أو hover لأول مرة

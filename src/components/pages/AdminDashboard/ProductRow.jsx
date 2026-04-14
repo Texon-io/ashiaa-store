@@ -11,11 +11,7 @@ function ProductRow({ product }) {
   const { deleteProduct } = useAllProducts();
   const { name, category, price, stock, main_image, best_seller } = product;
 
-  const IS_NETLIFY = window.location.hostname !== "localhost";
-
-  const optimizedImage = IS_NETLIFY
-    ? `/.netlify/images?url=${encodeURIComponent(main_image)}&w=100&q=75`
-    : main_image;
+  const optimizedImage = `https://images.weserv.nl/?url=${encodeURIComponent(main_image)}&w=100&q=75&output=webp`;
 
   return (
     <tr

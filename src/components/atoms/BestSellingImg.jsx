@@ -1,7 +1,5 @@
 import { placeHolder } from "../../utils/constants.js";
 
-const IS_NETLIFY = window.location.hostname !== "localhost";
-
 const optimizeImg = (url, width = 300) => {
   if (!url) return placeHolder;
   // Always use weserv for proxying/caching to save Supabase egress

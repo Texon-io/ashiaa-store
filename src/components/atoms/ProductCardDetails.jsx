@@ -26,17 +26,20 @@ const ProductCardDetails = ({
         <p className="font-semibold text-xl text-accent-dark-2 flex ">
           {price} <span className="mx-1">ج.م</span>
         </p>
-        <p className="card-stock text-accent-dark/70 font-medium text-sm">
+        {/* <p className="card-stock text-accent-dark/70 font-medium text-sm">
           الكمية: <span className="text-accent-dark-2">{stock}</span>
-        </p>
+        </p> */}
+        {stock <= 0 && (
+          <p className="card-stock font-bold text-sm">نفذ من المخزن</p>
+        )}
       </div>
 
       {/* add to cart button */}
       <Button
         onClick={() => onAddToCart({ name, price, image, id })}
-        className="w-full mx-0 mt-2"
+        className="w-full mx-0 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
         size={"sm"}
-        disabled={stock === 0 || stock < 0}
+        disabled={stock === 0}
       >
         أضف إلى السلة
       </Button>

@@ -170,20 +170,25 @@ function Products() {
       </AnimatePresence>
 
       <div className="p-6 px-8 mt-14 ">
-        <div className="flex max-sm:flex-col justify-between items-start sm:items-center my-6 gap-4">
-          <div className="flex  items-center gap-6 w-full sm:max-w-md md:max-w-lg lg:max-w-xl">
-            <LogoWord className="text-4xl text-accent-dark-2 pr-2">
-              منتجاتنا
-            </LogoWord>
+        <LogoWord className="text-4xl text-accent-dark-2 pr-2 my-2">
+          منتجاتنا
+        </LogoWord>
+        {/* Search and Categories Row */}
+        <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 my-4">
+          {/* SearchBar - Fixed width to allow Categories to grow */}
+          <div className="w-full md:w-1/3">
             <SearchBar onSearch={onSearch} query={query} setQuery={setQuery} />
           </div>
 
+          {/* CategoriesList - flex-1 gives it the remaining priority width */}
           {!finalLoading && (
-            <CategoriesList
-              categories={["الكل", ...ALL_CATEGORIES]}
-              activeCategory={activeCategory}
-              setActiveCategory={handleCategoryChange}
-            />
+            <div className="flex-1 overflow-x-auto">
+              <CategoriesList
+                categories={["الكل", ...ALL_CATEGORIES]}
+                activeCategory={activeCategory}
+                setActiveCategory={handleCategoryChange}
+              />
+            </div>
           )}
         </div>
 

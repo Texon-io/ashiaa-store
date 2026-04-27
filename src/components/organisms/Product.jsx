@@ -38,7 +38,7 @@ function LazyThumbnail({ imgUrl, isActive, onClick }) {
         // preload on hover قبل الضغط بفارق لحظة
         if (!src) setSrc(optimizeImg(imgUrl, 150));
       }}
-      className={`w-16 h-16 md:w-20 md:h-20 rounded-md cursor-pointer overflow-hidden border-2 transition-all flex-shrink-0 bg-accent-main/30 ${
+      className={`w-16 h-16 md:w-20 md:h-20 rounded-md cursor-pointer overflow-hidden border-2 transition-all shrink-0 bg-accent-main/30 ${
         isActive
           ? "border-accent-dark scale-105"
           : "border-transparent opacity-70 hover:opacity-100"
@@ -66,7 +66,9 @@ function LazyThumbnail({ imgUrl, isActive, onClick }) {
 
 function Product({ showModal, data }) {
   const { addToCart } = useCart();
-  const [activeImgOriginal, setActiveImgOriginal] = useState(() => data?.main_image);
+  const [activeImgOriginal, setActiveImgOriginal] = useState(
+    () => data?.main_image,
+  );
 
   useEffect(() => {
     if (data?.main_image) setActiveImgOriginal(data.main_image);
@@ -74,7 +76,9 @@ function Product({ showModal, data }) {
 
   if (!data || Object.keys(data).length === 0) return null;
 
-  const { main_image, name, description, price, stock, id, additional_images } = data;
+  const { main_image, name, description, price, stock, id, additional_images } =
+    data;
+  const isEmpty = stock <= 0;
 
   function handleCloseModal(e) {
     if (e.target === e.currentTarget) showModal(false);
@@ -109,12 +113,18 @@ function Product({ showModal, data }) {
           <div className="mt-auto">
             <div className="text-accent-dark flex justify-between items-center mb-4 text-lg">
               <span className="font-semibold">{price} ج.م</span>
-              <span>الكمية: {stock}</span>
+              <span
+                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-600 border border-red-200`}
+              >
+                {isEmpty ? "نفذ من المخزن" : ""}
+              </span>
             </div>
             <Button
-              onClick={() => addToCart({ name, price, image: activeImgOriginal, id })}
-              className="w-full"
-              disabled={stock === 0 || stock < 0}
+              onClick={() =>
+                addToCart({ name, price, image: activeImgOriginal, id })
+              }
+              className="w-full disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={isEmpty}
             >
               أضف إلى السلة
             </Button>

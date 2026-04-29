@@ -3,9 +3,7 @@ import Button from "./Button.jsx";
 
 const ProductCardDetails = ({ product }) => {
   const { addToCart } = useCart();
-  const { id, name, description, image, price, stock, colors } = product;
-
-  console.log(colors ? colors : "no color");
+  const { id, name, description, main_image, price, stock, colors } = product;
 
   return (
     <div className="card-data py-4 px-4 flex flex-col items-end gap-3 min-h-[180px] justify-between">
@@ -53,7 +51,7 @@ const ProductCardDetails = ({ product }) => {
 
       {/* Add to Cart Button */}
       <Button
-        onClick={() => addToCart({ name, price, image, id })}
+        onClick={() => addToCart({ name, price, main_image, colors, id })}
         className="w-full mx-0 mt-1 disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed"
         size={"sm"}
         disabled={stock === 0}

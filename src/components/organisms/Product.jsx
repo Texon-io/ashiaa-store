@@ -118,25 +118,28 @@ function Product({ showModal, data }) {
           </h5>
           <p className="text-lg md:text-xl mb-6">{description}</p>
           <div>
-            <span>الألوان المتاحة:</span>
+            <span>{colors && "الألوان المتاحة:"}</span>
             <div className={`flex gap-3 mt-3`}>
-              {colors.map((color, index) => (
-                <div
-                  key={index}
-                  style={{ backgroundColor: color }}
-                  className="w-5 h-5 rounded-full border border-black/20 shadow-sm hover:scale-115 transition-transform duration-300"
-                />
-              ))}
+              {colors &&
+                colors.map((color, index) => (
+                  <div
+                    key={index}
+                    style={{ backgroundColor: color }}
+                    className="w-5 h-5 rounded-full border border-black/20 shadow-sm hover:scale-115 transition-transform duration-300"
+                  />
+                ))}
             </div>
           </div>
           <div className="mt-auto">
             <div className="text-accent-dark flex justify-between items-center mb-4 text-lg">
               <span className="font-semibold">{price} ج.م</span>
-              <span
-                className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-600 border border-red-200`}
-              >
-                {isEmpty ? "نفذ من المخزن" : ""}
-              </span>
+              {isEmpty && (
+                <span
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-600 border border-red-200`}
+                >
+                  نفذ من المخزن
+                </span>
+              )}
             </div>
             <Button
               onClick={() =>

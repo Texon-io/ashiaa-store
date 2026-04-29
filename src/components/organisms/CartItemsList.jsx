@@ -5,6 +5,7 @@ import CartItem from "../molecules/CartItem";
 function CartItemsList() {
   const { cartItems } = useCart();
   const isEmpty = cartItems.length === 0;
+
   return (
     <ul id="cart-items" className="flex-1 overflow-y-auto space-y-4 ">
       {isEmpty && (

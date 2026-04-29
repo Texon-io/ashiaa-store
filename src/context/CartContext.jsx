@@ -45,8 +45,7 @@ function CartProvider({ children }) {
     );
 
   const clearCart = () => {
-      setCartItems([]);
-      console.log("erased")
+    setCartItems([]);
   };
 
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);

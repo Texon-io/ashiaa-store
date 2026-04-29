@@ -96,7 +96,7 @@ function Product({ showModal, data }) {
   return (
     <div
       onClick={handleCloseModal}
-      className="fixed inset-0 bg-black/30 flex justify-center items-center z-[100]"
+      className="fixed inset-0 bg-black/30 flex justify-center items-center z-100"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0 }}

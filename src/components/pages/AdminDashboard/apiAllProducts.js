@@ -20,7 +20,10 @@ async function uploadImage(file) {
 
   const { data, error: storageError } = await supabase.storage
     .from("product-images")
-    .upload(filePath, file, { cacheControl: "max-age=31536000, public", upsert: true });
+    .upload(filePath, file, {
+      cacheControl: "max-age=31536000, public",
+      upsert: true,
+    });
 
   if (storageError) {
     console.error("Storage Error Details:", storageError);
@@ -59,6 +62,7 @@ export async function addProduct(newProduct) {
         stock: Number(newProduct.stock),
         description: newProduct.description,
         best_seller: Boolean(newProduct.best_seller),
+        colors: newProduct.colors || [],
         main_image: mainImageUrl,
         additional_images: additionalImagesUrls,
       },
@@ -168,6 +172,7 @@ export async function editProduct({ id, updatedData }) {
     best_seller: Boolean(updatedData.best_seller),
     main_image: mainImageUrl,
     additional_images: finalAdditionalUrls,
+    colors: updatedData.colors,
   };
 
   const { data, error } = await supabase

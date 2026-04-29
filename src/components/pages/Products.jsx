@@ -14,7 +14,6 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import useProducts from "../../hooks/useProducts.js";
 import useAllProducts from "../../hooks/useAllProducts.js";
-import { lazy } from "react";
 import SearchBar from "../atoms/SearchBar.jsx";
 import NoResultsFound from "../molecules/NoResultsFound.jsx";
 

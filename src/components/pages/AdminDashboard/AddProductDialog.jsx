@@ -13,6 +13,7 @@ import { ImagePlus, X, Images } from "lucide-react";
 import CustomSelect from "./CustomSelect";
 import { useAllProducts } from "./useAllProducts";
 import { toast } from "sonner";
+import { color } from "framer-motion";
 
 const categories = [
   { id: "باكيدچات أو بوكسات", label: "باكيدچات أو بوكسات" },
@@ -33,10 +34,12 @@ export default function AddProductDialog({
   const [additionalImages, setAdditionalImages] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("دفاتر");
   const [isBestSeller, setIsBestSeller] = useState(false);
-
+  const [productColors, setProductColors] = useState([]);
   const mainFileRef = useRef(null);
   const additionalFilesRef = useRef(null);
   const { addProduct, editProduct, isAdding, isEditing } = useAllProducts();
+
+  const colorInputRef = useRef(null);
 
   // Compression options
   const compressionOptions = {
@@ -63,10 +66,12 @@ export default function AddProductDialog({
       setMainImage(productToEdit.main_image || null);
       setAdditionalImages(productToEdit.additional_images || []);
       setIsBestSeller(productToEdit.best_seller);
+      setProductColors(productToEdit.colors || []);
     } else {
       setSelectedCategory("دفاتر");
       setMainImage(null);
       setAdditionalImages([]);
+      setProductColors([]);
     }
   }, [productToEdit, open]);
 
@@ -85,6 +90,17 @@ export default function AddProductDialog({
     setAdditionalImages((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const addColor = () => {
+    const selectedColor = colorInputRef?.current?.value;
+    if (!productColors.includes(selectedColor)) {
+      setProductColors([...productColors, selectedColor]);
+    }
+  };
+
+  const removeColor = (colorToRemove) => {
+    setProductColors(productColors.filter((c) => c !== colorToRemove));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -100,7 +116,6 @@ export default function AddProductDialog({
     const optimizedAdditionals = await Promise.all(
       additionalImages.map((img) => processImage(img)),
     );
-
     const productData = {
       name: e.target.name.value,
       description: e.target.desc.value,
@@ -110,6 +125,7 @@ export default function AddProductDialog({
       main_image: optimizedMain,
       additional_images: optimizedAdditionals,
       best_seller: isBestSeller,
+      colors: productColors,
     };
 
     if (productToEdit) {
@@ -215,12 +231,67 @@ export default function AddProductDialog({
             </label>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Colors Section */}
+          <div className="space-y-3 text-left">
+            <Label>ألوان المنتج</Label>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 border rounded-lg p-1 px-2 bg-gray-50">
+                <input
+                  type="color"
+                  ref={colorInputRef}
+                  defaultValue={"#000000"}
+                  className="w-8 h-8 rounded-full border-none cursor-pointer bg-transparent overflow-hidden"
+                />
+                <span className="text-xs font-mono uppercase">
+                  {colorInputRef.current?.value || "#000000"}
+                </span>
+              </div>
+              <ButtonShadcn
+                type="button"
+                onClick={addColor}
+                variant="outline"
+                className="h-10 px-4 text-sm cursor-pointer"
+              >
+                إضافة لون
+              </ButtonShadcn>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mt-2">
+              {productColors.map((color, index) => (
+                <div
+                  key={index}
+                  className="group relative flex items-center gap-2 px-2 py-1 rounded-full border bg-white hover:border-red-200 transition-all"
+                >
+                  <div
+                    className="w-4 h-4 rounded-full border shadow-sm"
+                    style={{ backgroundColor: color }}
+                  />
+                  <span className="text-[10px] font-mono uppercase">
+                    {color}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removeColor(color)}
+                    className="text-gray-400 hover:text-red-500 transition-colors"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+              ))}
+              {productColors.length === 0 && (
+                <p className="text-xs text-gray-400 italic">
+                  لا توجد ألوان مضافة بعد
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-44">
             {" "}
             {/* Main Image Section */}
-            <div className="space-y-3 text-left">
+            <div className="space-y-3 text-left h-full">
               <Label>الصورة الرئيسية</Label>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 h-full">
                 <input
                   type="file"
                   hidden
@@ -229,7 +300,7 @@ export default function AddProductDialog({
                   accept="image/*"
                 />
                 {mainImage ? (
-                  <div className="relative w-32 h-32 rounded-lg overflow-hidden border">
+                  <div className="relative w-40 h-36 rounded-lg overflow-hidden border">
                     <img
                       src={
                         typeof mainImage === "string"
@@ -242,7 +313,7 @@ export default function AddProductDialog({
                     <button
                       type="button"
                       onClick={removeMainImage}
-                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1"
+                      className="absolute top-1 right-1 bg-red-500 cursor-pointer text-white rounded-full p-1"
                     >
                       <X size={12} />
                     </button>
@@ -260,7 +331,7 @@ export default function AddProductDialog({
               </div>
             </div>
             {/* Additional Images Section */}
-            <div className="space-y-3 text-left">
+            <div className="space-y-3 text-left h-full">
               <Label>صور إضافية للمنتج</Label>
               <div className="flex flex-wrap gap-2">
                 <input
@@ -287,7 +358,7 @@ export default function AddProductDialog({
                     <button
                       type="button"
                       onClick={() => removeAdditionalImage(index)}
-                      className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-0.5"
+                      className="absolute top-0 right-0 bg-red-500 cursor-pointer text-white rounded-full p-0.5"
                     >
                       <X size={10} />
                     </button>
@@ -297,7 +368,7 @@ export default function AddProductDialog({
                 <button
                   type="button"
                   onClick={() => additionalFilesRef.current.click()}
-                  className="w-20 h-20 border-2 border-dashed rounded-md flex flex-col items-center justify-center text-gray-400 hover:border-accent-dark"
+                  className="w-20 h-20 border-2 border-dashed rounded-md flex flex-col items-center justify-center text-gray-400 hover:border-accent-dark hover:text-accent-dark cursor-pointer duration-300"
                 >
                   <Images size={20} />
                   <span className="text-[8px] mt-1">اضافة صور</span>

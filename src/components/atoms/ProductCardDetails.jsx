@@ -16,13 +16,13 @@ const ProductCardDetails = ({ product }) => {
         </h5>
 
         {/* Short Description */}
-        <p className="card-description w-full text-accent-dark/70 font-medium text-sm line-clamp-2">
+        <p className="card-description w-full min-h-10 text-accent-dark/70 font-medium text-sm line-clamp-2">
           {description}
         </p>
       </div>
 
       {/* Colors Section */}
-      <div className="w-full flex justify-between items-end gap-2 my-2">
+      <div className="w-full flex justify-between items-end gap-2">
         <span className="text-[11px] uppercase tracking-wider text-accent-dark/50 font-bold">
           {colors ? "الألوان المتاحة:" : ""}
         </span>

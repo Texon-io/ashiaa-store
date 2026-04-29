@@ -56,13 +56,7 @@ function BestSellingSec() {
             <SwiperSlide key={product.id}>
               <div className="py-12 px-4">
                 {" "}
-                <BestSellingProduct
-                  id={product.id}
-                  name={product.name}
-                  price={product.price}
-                  image={product.main_image}
-                  description={product.description}
-                />
+                <BestSellingProduct product={product} />
               </div>
             </SwiperSlide>
           ))}

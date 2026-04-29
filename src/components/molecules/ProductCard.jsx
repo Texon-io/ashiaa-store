@@ -12,6 +12,7 @@ function Card({ data, showModal, setData }) {
     category = "All",
     price = 0,
     stock = 0,
+    colors = [],
     id,
   } = data;
 
@@ -21,37 +22,27 @@ function Card({ data, showModal, setData }) {
 
   return (
     <div
-      className={`rounded-lg min-w-full bg-accent-main/25 min-h-[420px] shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 ${stock <= 0 && "grayscale-100"}`}
+      className={`rounded-lg min-w-full bg-accent-main/25 min-h-[420px] shadow-lg hover:shadow-xl transition-all duration-300 ${
+        stock <= 0 ? "grayscale opacity-80" : "hover:-translate-y-2"
+      }`}
     >
       <div
-        className="overflow-hidden rounded-t-lg min-w-[300px] min-h-[250px] w-full cursor-pointer"
+        className="relative overflow-hidden rounded-t-lg min-w-[300px] min-h-[250px] w-full cursor-pointer"
         onClick={() => {
           setData(data);
           showModal((prev) => !prev);
         }}
       >
         <img
-          className={`w-full h-[305px] object-cover transition-transform duration-500 ${stock <= 0 ? "" : "hover:scale-105"}`}
+          className={`w-full h-[305px] object-cover transition-transform duration-500 ${
+            stock <= 0 ? "" : "hover:scale-105"
+          }`}
           src={optimizedImage}
-          loading="lazy"
-          decoding="async"
           alt={`${category}: ${name}`}
-          onError={(e) => {
-            e.target.src = placeHolder;
-          }}
         />
       </div>
 
-      <ProductCardDetails
-        id={id}
-        name={name}
-        image={main_image}
-        description={description}
-        category={category}
-        price={price}
-        stock={stock}
-        onAddToCart={addToCart}
-      />
+      <ProductCardDetails product={data} />
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function BestSellingProduct({ product }) {
 
   return (
     <div
-      className={`bg-card-bg rounded-xl shadow-md p-3 flex flex-col transition duration-300 ${isOutOfStock ? "opacity-75" : "hover:scale-102 hover:shadow-xl"}`}
+      className={`bg-card-bg rounded-xl shadow-md p-3 cursor-default flex flex-col transition duration-300 ${isOutOfStock ? "opacity-75" : "hover:scale-102 hover:shadow-xl"}`}
     >
       <div className="relative">
         <BestSellingImg image={main_image} name={name} />
@@ -29,7 +29,7 @@ export default function BestSellingProduct({ product }) {
         )}
       </div>
 
-      <div className="mt-3 flex-grow">
+      <div className="mt-3 grow">
         <h3 className="text-center font-semibold text-main-text text-lg">
           {name}
         </h3>

@@ -1,8 +1,9 @@
+import { useCart } from "@/hooks/useCart.jsx";
 import Button from "./Button.jsx";
 
 const ProductCardDetails = ({ product }) => {
-  const { id, name, description, image, price, stock, onAddToCart, colors } =
-    product;
+  const { addToCart } = useCart();
+  const { id, name, description, image, price, stock, colors } = product;
 
   console.log(colors ? colors : "no color");
 
@@ -31,7 +32,6 @@ const ProductCardDetails = ({ product }) => {
               key={index}
               style={{ backgroundColor: color }}
               className="w-4 h-4 rounded-full border border-black/20 shadow-sm hover:scale-115 transition-transform duration-300"
-              title={color}
             />
           ))}
         </div>
@@ -53,7 +53,7 @@ const ProductCardDetails = ({ product }) => {
 
       {/* Add to Cart Button */}
       <Button
-        onClick={() => onAddToCart({ name, price, image, id })}
+        onClick={() => addToCart({ name, price, image, id })}
         className="w-full mx-0 mt-1 disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed"
         size={"sm"}
         disabled={stock === 0}

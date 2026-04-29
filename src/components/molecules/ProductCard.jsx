@@ -3,18 +3,7 @@ import { placeHolder } from "../../utils/constants.js";
 import { useCart } from "../../hooks/useCart.jsx";
 
 function Card({ data, showModal, setData }) {
-  const { addToCart } = useCart();
-
-  const {
-    main_image,
-    name = "اسم المنتج",
-    description = "منتج مكتبي رفيع من بائعة الكتب",
-    category = "All",
-    price = 0,
-    stock = 0,
-    colors = [],
-    id,
-  } = data;
+  const { main_image, name = "اسم المنتج", category = "All", stock = 0 } = data;
 
   const optimizedImage = main_image
     ? `https://images.weserv.nl/?url=${encodeURIComponent(main_image)}&w=400&q=80&output=webp`

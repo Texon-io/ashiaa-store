@@ -5,7 +5,7 @@ import Button from "../atoms/Button";
 export default function BestSellingProduct({ product }) {
   const { addToCart } = useCart();
 
-  const { id, name, price, main_image, description, stock } = product;
+  const { id, name, price, main_image, description, stock, colors } = product;
   const isOutOfStock = stock <= 0;
 
   const handleAdd = () => {
@@ -38,15 +38,29 @@ export default function BestSellingProduct({ product }) {
           {description}
         </p>
 
+        <div className={`my-2 flex justify-between items-center h-4`}>
+          <span className={`text-xs opacity-75`}>
+            {colors && "الألوان المتاحة:"}
+          </span>
+          <div className="flex gap-1.5 flex-row-reverse">
+            {colors?.map((color, index) => (
+              <div
+                key={index}
+                style={{ backgroundColor: color }}
+                className="w-4 h-4 rounded-full border border-black/20 shadow-sm hover:scale-115 transition-transform duration-300"
+              />
+            ))}
+          </div>
+        </div>
+
         <p className="text-center text-md font-semibold text-gray-600 mt-1">
           {price} ج.م
         </p>
       </div>
 
       <Button
-        variant={isOutOfStock ? "disabled" : "main"}
         size="sm"
-        className="mt-4 w-full"
+        className="mt-4 w-full disabled:cursor-not-allowed disabled:opacity-50"
         onClick={handleAdd}
         disabled={isOutOfStock}
       >

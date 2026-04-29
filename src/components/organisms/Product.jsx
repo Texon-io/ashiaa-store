@@ -10,7 +10,6 @@ const optimizeImg = (url, width = 800) => {
   return `https://images.weserv.nl/?url=${encodeURIComponent(url)}&w=${width}&q=80&output=webp`;
 };
 
-// Thumbnail: يتحمل الصورة الصغيرة بس لما يتعمله click أو hover لأول مرة
 function LazyThumbnail({ imgUrl, isActive, onClick }) {
   const [loaded, setLoaded] = useState(false);
   const [src, setSrc] = useState(null);
@@ -76,8 +75,16 @@ function Product({ showModal, data }) {
 
   if (!data || Object.keys(data).length === 0) return null;
 
-  const { main_image, name, description, price, stock, id, additional_images } =
-    data;
+  const {
+    main_image,
+    name,
+    description,
+    price,
+    stock,
+    id,
+    additional_images,
+    colors,
+  } = data;
   const isEmpty = stock <= 0;
 
   function handleCloseModal(e) {
@@ -110,6 +117,18 @@ function Product({ showModal, data }) {
             {name}
           </h5>
           <p className="text-lg md:text-xl mb-6">{description}</p>
+          <div>
+            <span>الألوان المتاحة:</span>
+            <div className={`flex gap-3 mt-3`}>
+              {colors.map((color, index) => (
+                <div
+                  key={index}
+                  style={{ backgroundColor: color }}
+                  className="w-5 h-5 rounded-full border border-black/20 shadow-sm hover:scale-115 transition-transform duration-300"
+                />
+              ))}
+            </div>
+          </div>
           <div className="mt-auto">
             <div className="text-accent-dark flex justify-between items-center mb-4 text-lg">
               <span className="font-semibold">{price} ج.م</span>

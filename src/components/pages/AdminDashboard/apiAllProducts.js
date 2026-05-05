@@ -124,6 +124,8 @@ export async function editProduct({ id, updatedData }) {
   if (fetchError) throw new Error("تعذر جلب بيانات المنتج القديمة");
 
   let mainImageUrl = updatedData.main_image;
+  console.log(updatedData);
+
   const filesToDelete = [];
 
   // 2. Process main image

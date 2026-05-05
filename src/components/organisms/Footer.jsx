@@ -18,7 +18,7 @@ function Footer() {
       <div className="text-center my-4 pt-4 text-sm text-[#70453F]/70">
         <p>
           <span>© 2025 أشياء ستور. كل الحقوق محفوظة. </span> —
-          <a href={`https://texon-dev.netlify.app/`}>
+          <a href={`https://texon-io.netlify.app/`}>
             {" "}
             Made by{" "}
             <span

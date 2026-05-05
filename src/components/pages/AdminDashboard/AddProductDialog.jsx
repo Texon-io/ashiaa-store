@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import imageCompression from "browser-image-compression";
 import {
   Dialog,
   DialogContent,
@@ -41,24 +40,7 @@ export default function AddProductDialog({
 
   const colorInputRef = useRef(null);
 
-  // Compression options
-  const compressionOptions = {
-    maxSizeMB: 0.1,
-    maxWidthOrHeight: 800,
-    useWebWorker: true,
-    fileType: "image/webp",
-  };
 
-  // Process image function
-  const processImage = async (image) => {
-    if (!image || typeof image === "string") return image;
-    try {
-      return await imageCompression(image, compressionOptions);
-    } catch (error) {
-      console.error("Error compressing image:", error);
-      return image;
-    }
-  };
 
   useEffect(() => {
     if (productToEdit) {
@@ -111,19 +93,14 @@ export default function AddProductDialog({
       return;
     }
 
-    const optimizedMain = await processImage(mainImage);
-
-    const optimizedAdditionals = await Promise.all(
-      additionalImages.map((img) => processImage(img)),
-    );
     const productData = {
       name: e.target.name.value,
       description: e.target.desc.value,
       price: e.target.price.value,
       stock: e.target.stock.value,
       category: selectedCategory,
-      main_image: optimizedMain,
-      additional_images: optimizedAdditionals,
+      main_image: mainImage,
+      additional_images: additionalImages,
       best_seller: isBestSeller,
       colors: productColors,
     };

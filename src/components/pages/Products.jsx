@@ -114,7 +114,15 @@ function Products() {
 
   // To determine which products to show
   const filteredProducts = useMemo(() => {
-    return isAllActive ? allProducts : currentCategoryProducts;
+    const products = isAllActive ? allProducts : currentCategoryProducts;
+
+    return [...products].sort((a, b) => {
+      const aInStock = a.stock > 0;
+      const bInStock = b.stock > 0;
+
+      if (aInStock === bInStock) return 0;
+      return aInStock ? -1 : 1;
+    });
   }, [isAllActive, allProducts, currentCategoryProducts]);
 
   // Final loading state
